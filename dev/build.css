@@ -1,1 +1,372 @@
-
+/* --------------------
+* BUILD.CSS
+* Version: 1.0.0
+* Description: Core styles for Williams College web applications
+* Author: PP8
+* Last updated: 2025-05-18
+* -------------------- */
+/* Import core design system */
+@import url('/dev/styles/variables.css');
+@import url('/dev/styles/fonts.css');
+/* --------------------
+* CUSTOM PROPERTIES
+* -------------------- */
+:root {
+	/* Layout */
+	--header-height: 66px;
+	--header-padding-desktop: 2.75rem 2rem 4.125rem;
+	--logo-width-mobile: 120px;
+	--logo-width-tablet: 240px;
+	--logo-width-desktop: 264px;
+	--container-max-width: 1400px;
+	--container-padding: 0.5rem 1rem;
+}
+/* ===== CRM OVERRIDES ===== */
+/* IMPORTANT: These fix CRM styles - DO NOT REMOVE */
+div[data-col] {
+	width: inherit !important;
+	max-width: inherit !important;
+	padding: 0 !important;
+}
+.no-touch ul.action a:active, 
+.no-touch button:active, 
+.no-touch button.focus, 
+.no-touch input[type=button]:active, 
+.no-touch input[type=submit]:active, 
+.no-touch ul.action a.default:active, 
+.no-touch button.default:active, 
+.no-touch input[type=button].default:active, 
+.no-touch input[type=submit].default:active {
+	background-color: #500082b0 !important;
+	color: var(--cFFFFFFFF, #fff);
+}
+.nav-link:focus, 
+.nav-link:hover {
+	color: #500082b0 !important;
+}
+.list-group-item.active {
+	background-color: #50008266 !important;
+	border-color: #50008266 !important;
+}
+.btn-sm i {
+	margin-right: 0 !important;
+}
+.btn i {
+	margin: 0 !important;
+}
+.active>.page-link, .page-link.active {
+	color: var(--bs-pagination-active-color);
+	background-color: #280050 !important;
+	border-color: #280050!important;
+}
+#global ul{
+	list-style:none;
+}
+/* --------------------
+* LAYOUT & STRUCTURE
+* -------------------- */
+html {
+	-webkit-text-size-adjust: 100%;
+	font-family: var(--font-body);
+	line-height: var(--line-height-normal);
+}
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	opacity: 0;
+	transition: opacity 0.3s ease-in;
+	margin: 0;
+	background-color: white;
+}
+body.fade-in {
+	opacity: 1;
+}
+main, 
+.main-bg-wrapper {
+	flex-grow: 1;
+}
+/* --------------------
+* HEADER COMPONENTS
+* -------------------- */
+.network-header {
+	position: relative;
+	width: 100%;
+	background-color: var(--purple);
+	transition: box-shadow 0.3s ease-in-out, padding 0.3s;
+	min-height: var(--header-height);
+	display: flex;
+	align-items: center;
+}
+.network-header .outer-container {
+	width: 100%;
+}
+.network-header .inner-container {
+	position: relative;
+	width: 100%;
+	max-width: var(--container-max-width);
+	margin: 0 auto;
+	padding: var(--container-padding);
+}
+.wordmark {
+	position: relative;
+	left: 0;
+	top: 0;
+	display: flex;
+	align-items: center;
+}
+.wordmark .logo {
+	display: block;
+	width: var(--logo-width-mobile);
+	transition: width 0.3s ease;
+}
+.wordmark .logo img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+/* --------------------
+* SEARCH COMPONENTS
+* -------------------- */
+.wms-navbox {
+	position: relative;
+	z-index: 600;
+}
+.wms-navbox-form {
+	position: relative;
+	z-index: 1;
+}
+.wms-navbox-input {
+	border: none;
+	color: var(--medium-grey);
+	height: 34px;
+	width: 100%;
+	background: none 0 0 repeat scroll #fff !important;
+	box-shadow: none !important;
+	margin-bottom: 0 !important;
+	padding: 0 40px 0 42px !important;
+}
+.wms-navbox-input:focus {
+	outline: none;
+	border-color: var(--focus-border);
+	box-shadow: 0 0 0 3px var(--focus-ring);
+}
+.wms-navbox-button {
+	background-color: var(--purple);
+	border: 1px solid var(--purple);
+	color: #fff;
+	cursor: pointer;
+	float: right;
+	font-family: var(--font-body);
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-bold);
+	height: 34px;
+	padding: inherit;
+	position: absolute;
+	right: 0;
+	text-transform: uppercase;
+	top: 0;
+	width: 34px;
+	appearance: none;
+	transition: background-color var(--transition-normal);
+}
+.wms-navbox-button:hover,
+.wms-navbox-button:focus {
+	background-color: var(--dark-purple);
+}
+/* Typeahead styles */
+.twitter-typeahead {
+	height: 34px;
+	width: 100%;
+}
+.tt-dropdown-menu {
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: var(--radius-sm);
+	box-shadow: var(--shadow-md);
+	display: none;
+	height: auto;
+	padding: 35px 0 4px;
+	position: absolute;
+	width: calc(100% + 8px);
+	left: -4px !important;
+	top: -4px !important;
+	z-index: -1 !important;
+}
+.tt-hint {
+	height: 34px;
+	padding-left: 42px;
+	width: 100%;
+}
+/* --------------------
+* FOOTER COMPONENTS
+* -------------------- */
+.bg-custom {
+	background-color: var(--purple);
+}
+.text-white {
+	color: #fff;
+}
+.border-bottom {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+.custom-hover:hover {
+	text-decoration: underline !important;
+	transition: all var(--transition-normal);
+}
+.footerlist {
+	font-family: 'EphSlab', Georgia, serif;
+	font-size: var(--font-size-md);
+	font-weight: var(--font-weight-normal);
+	text-decoration: none;
+}
+address {
+	font-family: 'EphSlab', Georgia, serif;
+	font-size: var(--font-size-lg);
+	font-weight: var(--font-weight-normal);
+	font-style: normal;
+	letter-spacing: 1px;
+	line-height: 27.2px;
+	padding-top: 12px;
+}
+/* --------------------
+* ACCESSIBILITY
+* -------------------- */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	overflow-wrap: normal !important;
+}
+.screen-reader-text:focus {
+	background-color: #ddd;
+	clip: auto !important;
+	clip-path: none;
+	color: #444;
+	display: block;
+	font-size: 1em;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000;
+}
+/* --------------------
+* UTILITY CLASSES
+* -------------------- */
+.hidden {
+	display: none !important;
+}
+.cf::before,
+.cf::after {
+	content: " ";
+	display: table;
+}
+.cf::after {
+	clear: both;
+}
+/* --------------------
+* RESPONSIVE DESIGN
+* -------------------- */
+@media (min-width: 350px) {
+	.inner-container {
+		max-width: 350px;
+		margin: 0 auto;
+	}
+}
+@media (min-width: 710px) {
+	.wordmark .logo {
+		width: var(--logo-width-mobile);
+		margin: 0;
+	}
+}
+@media (min-width: 910px) {
+	.fl-module-network-header .network-header .wordmark {
+		left: auto;
+	}
+	.inner-container {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+	.site-content .content-inner {
+		margin: 0 auto;
+		padding: 0 4rem;
+	}
+	.site-content .content-inner #main {
+		max-width: 930px;
+		margin: 0 auto;
+	}
+	.wms-search {
+		margin: 0 auto;
+	}
+	.wms-search .wms-navbox .wms-navbox-form .wms-icon-search {
+		right: 6px;
+		margin-right: 45px;
+	}
+}
+@media (min-width: 992px) {
+	.network-header {
+		padding: 0;
+	}
+	.network-header .inner-container {
+		padding: var(--header-padding-desktop);
+	}
+	.wordmark .logo {
+		width: var(--logo-width-desktop);
+	}
+}
+/* --------------------
+* PRINT STYLES
+* -------------------- */
+@media print {
+	* {
+		background: transparent !important;
+		color: #000 !important;
+		box-shadow: none !important;
+		text-shadow: none !important;
+	}
+	body {
+		font-size: 12pt;
+		font-family: Georgia, serif;
+		line-height: 1.5;
+	}
+	.site-title,
+	.page-title {
+		font-size: 21pt;
+	}
+	.site {
+		max-width: 980px;
+		margin: 0 auto;
+	}
+	.network-header {
+		border-bottom: 1px solid #000;
+		margin-bottom: 2em;
+	}
+	.content-main {
+		width: 100%;
+	}
+	.content-main > article {
+		margin-bottom: 3em;
+	}
+	.site-footer {
+		margin-top: 2em;
+	}
+	/* Hide unnecessary elements when printing */
+	form,
+	button,
+	input,
+	.global-navigation,
+	.social-navigation {
+		display: none !important;
+	}
+}
