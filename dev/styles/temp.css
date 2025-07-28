@@ -1,4 +1,7 @@
-.temp_class{
+.temp_class {
+  padding: 10px;
+}
 
-    padding: 10px;
+.temp_btn {
+  color: blue;
 }
