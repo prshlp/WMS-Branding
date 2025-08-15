@@ -13,7 +13,7 @@
         <link href="/dev/styles/fonts.css?v=20250519002100" rel="stylesheet" />
         <link href="/dev/styles/build.css?v=3" rel="stylesheet" />
         <link href="/dev/styles/loginStyles.css?v=1.0.1" rel="stylesheet" />
-        <link href="/dev/styles/FormStyles.css?v=1.1.4" rel="stylesheet" />
+        <link href="/dev/styles/FormStyles.css?v=1.1.5" rel="stylesheet" />
         <xsl:apply-templates select="xhtml:html/xhtml:head/node()" />
         <style><![CDATA[
     /* Essential fade-in animation styles */
