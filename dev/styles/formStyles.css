@@ -84,6 +84,11 @@ div[id^="form_"]>h1:first-of-type {
 #register_date{
 	text-align: center;
 }
+/* styyling for rsvp buttons */
+div.action-links > button {
+	text-align: center !important;
+	border-radius: var(--radius-md) !important;
+}
 /* Form labels - Sophisticated gray system */
 .form_label {
 	font-size: var(--font-size-md);
@@ -1316,3 +1321,4 @@ LIKERT SCALE COMPONENTS
 		padding: 1px !important;
 	}
 }
+
