@@ -85,7 +85,13 @@ div[id^="form_"]>h1:first-of-type {
 	text-align: center;
 }
 /* styyling for rsvp buttons */
-div.action-links > button {
+
+.rsvp_details{
+    margin: var(--spacing-md) auto !important;
+    border: 1px solid !important;
+    border-radius: var(--radius-md)!important;
+}
+.rsvp_details div.action-links > button {
 	text-align: center !important;
 	border-radius: var(--radius-md) !important;
 }
@@ -1321,4 +1327,5 @@ LIKERT SCALE COMPONENTS
 		padding: 1px !important;
 	}
 }
+
 
