@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#500082">
+    <title>Dashboard - Williams College</title>
+    
+    <!-- Performance optimized loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    
+    <!-- Critical CSS inlined for optimal performance -->
+    <style id="critical-css">
+        :root {
+            --williams-purple: #500082;
+            --williams-gold: #ffbe0a;
+            --background: #ffffff;
+            --foreground: #18181b;
+        }
+        [data-theme="dark"] {
+            --background: #09090b;
+            --foreground: #fafafa;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --background: #09090b;
+                --foreground: #fafafa;
+            }
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            opacity: 0;
+            transition: opacity 300ms ease;
+        }
+        body.ready { opacity: 1; }
+        .dashboard-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 0.5rem;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+    
+    <!-- Design System Styles -->
+    <link href="/dev/styles/main.css" rel="stylesheet">
+    
+    <!-- Theme detection script -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('williams-theme') || 'auto';
+            if (theme === 'auto') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Page Layout -->
+    <div class="layout-dashboard">
+        <!-- Header -->
+        <header class="dashboard-header site-header compact">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-brand">
+                        <a href="/" class="header-logo">
+                            <img src="https://connect.williams.edu/www/images/Branding/hEADER.png" 
+                                 alt="Williams College" 
+                                 width="200" 
+                                 height="32">
+                        </a>
+                        <h1 class="header-page-title">Student Dashboard</h1>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <!-- Search -->
+                        <div class="header-search">
+                            <input type="search" 
+                                   class="header-search-input" 
+                                   placeholder="Search courses, grades..."
+                                   aria-label="Search">
+                            <button class="header-search-button" aria-label="Search">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="m11.742 10.344 6.814 6.814a1 1 0 0 1-1.414 1.414l-6.814-6.814a6 6 0 1 1 1.414-1.414zM5 10a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Notifications -->
+                        <div class="header-notification">
+                            <button class="header-theme-toggle" aria-label="Notifications">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10 2C10.7956 2 11.5587 2.31607 12.1213 2.87868C12.6839 3.44129 13 4.20435 13 5V8.586L14.707 10.293C14.8945 10.4805 14.9998 10.7348 15 11V13C15 13.2652 14.8946 13.5196 14.7071 13.7071C14.5196 13.8946 14.2652 14 14 14H6C5.73478 14 5.48043 13.8946 5.29289 13.7071C5.10536 13.5196 5 13.2652 5 13V11C5.00016 10.7348 5.10546 10.4805 5.293 10.293L7 8.586V5C7 4.20435 7.31607 3.44129 7.87868 2.87868C8.44129 2.31607 9.20435 2 10 2Z"/>
+                                    <path d="M8.5 16C8.5 16.663 8.76339 17.2989 9.23223 17.7678C9.70107 18.2366 10.337 18.5 11 18.5C11.663 18.5 12.2989 18.2366 12.7678 17.7678C13.2366 17.2989 13.5 16.663 13.5 16H8.5Z"/>
+                                </svg>
+                            </button>
+                            <div class="header-notification-count">3</div>
+                        </div>
+                        
+                        <!-- Theme Toggle -->
+                        <button type="button" class="header-theme-toggle theme-toggle" data-theme-toggle="cycle" aria-label="Toggle theme">
+                            <svg data-theme-icon="light" class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 2V4M10 16V18M4 10H2M6.31412 6.31412L4.8999 4.8999M13.6859 6.31412L15.1001 4.8999M6.31412 13.69L4.8999 15.1001M13.6859 13.69L15.1001 15.1001M18 10H16M14 10C14 7.79086 12.2091 6 10 6C7.79086 6 6 7.79086 6 10C6 12.2091 7.79086 14 10 14C12.2091 14 14 12.2091 14 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg data-theme-icon="dark" class="theme-icon theme-icon--dark" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" fill="currentColor"/>
+                            </svg>
+                            <svg data-theme-icon="auto" class="theme-icon theme-icon--auto" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 2C10 1.44772 9.55228 1 9 1C8.44772 1 8 1.44772 8 2V3C8 3.55228 8.44772 4 9 4C9.55228 4 10 3.55228 10 3V2Z" fill="currentColor"/>
+                                <path d="M14 10C14 12.2091 12.2091 14 10 14V10H14Z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- User Menu -->
+                        <div class="header-user">
+                            <button class="header-user-toggle" aria-expanded="false">
+                                <div class="header-user-avatar">JD</div>
+                                <span class="header-user-name">John Doe</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="m4 6 4 4 4-4"/>
+                                </svg>
+                            </button>
+                            <div class="header-user-menu">
+                                <a href="/profile">View Profile</a>
+                                <a href="/settings">Account Settings</a>
+                                <a href="/help">Help & Support</a>
+                                <hr style="border: none; border-top: 1px solid var(--border); margin: 0.5rem 0;">
+                                <a href="/logout">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <nav class="sidebar-nav" aria-label="Main navigation">
+                <ul class="nav nav-vertical">
+                    <li class="nav-item">
+                        <a href="/dashboard" class="nav-link active" aria-current="page">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                            </svg>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/courses" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span class="nav-text">Courses</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/grades" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="nav-text">Grades</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/schedule" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="nav-text">Schedule</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/transcript" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="nav-text">Transcript</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/finances" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4z"/>
+                                <path d="M6 8a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2V8zm4 1a1 1 0 000 2h4a1 1 0 100-2h-4z"/>
+                            </svg>
+                            <span class="nav-text">Finances</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 1.5rem 0;">
+                
+                <ul class="nav nav-vertical">
+                    <li class="nav-item">
+                        <a href="/resources" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="nav-text">Resources</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/support" class="nav-link">
+                            <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="nav-text">Help & Support</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="dashboard-main" id="main-content" data-crm-content="true">
+            <!-- Breadcrumbs -->
+            <nav class="breadcrumb mb-6" aria-label="Breadcrumb">
+                <div class="breadcrumb-item">
+                    <a href="/">Home</a>
+                </div>
+                <div class="breadcrumb-item active" aria-current="page">
+                    Dashboard
+                </div>
+            </nav>
+            
+            <!-- Welcome Section -->
+            <section class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h1 class="text-3xl font-bold mb-2">Welcome back, John!</h1>
+                        <p class="text-muted">Here's what's happening with your academics</p>
+                    </div>
+                    <div class="badge badge-success">
+                        Active Student
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="/courses/register" class="card card-hover">
+                        <div class="card-body text-center">
+                            <div class="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold mb-1">Register</h3>
+                            <p class="text-sm text-muted">Course Registration</p>
+                        </div>
+                    </a>
+                    
+                    <a href="/grades" class="card card-hover">
+                        <div class="card-body text-center">
+                            <div class="w-12 h-12 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M9 11H7v8h2v-8zm4-4h-2v12h2V7zm4-3h-2v15h2V4z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold mb-1">Grades</h3>
+                            <p class="text-sm text-muted">View Transcript</p>
+                        </div>
+                    </a>
+                    
+                    <a href="/finances" class="card card-hover">
+                        <div class="card-body text-center">
+                            <div class="w-12 h-12 bg-success text-success-foreground rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold mb-1">Pay Bill</h3>
+                            <p class="text-sm text-muted">Account Balance</p>
+                        </div>
+                    </a>
+                    
+                    <a href="/support" class="card card-hover">
+                        <div class="card-body text-center">
+                            <div class="w-12 h-12 bg-info text-info-foreground rounded-full flex items-center justify-center mx-auto mb-3">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold mb-1">Support</h3>
+                            <p class="text-sm text-muted">Get Help</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Alert Section -->
+            <section class="mb-8">
+                <div class="alert alert-warning">
+                    <div class="alert-icon">⚠</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Course Registration Deadline</div>
+                        <div class="alert-description">
+                            Registration for Spring 2025 courses closes on December 15th. 
+                            <a href="/courses/register" class="underline">Register now</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Current Courses -->
+                <div class="lg:col-span-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Current Courses - Fall 2024</h2>
+                            <p class="card-description">Your enrolled courses this semester</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">CSCI 334 - Advanced Algorithms</h3>
+                                        <p class="text-sm text-muted">Professor Johnson • MWF 10:00-11:00 AM</p>
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <span class="badge badge-primary">4 Credits</span>
+                                            <span class="badge badge-outline badge-success">A-</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <button class="btn btn-outline btn-sm">View Course</button>
+                                        <button class="btn btn-ghost btn-sm">Assignments</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">MATH 350 - Real Analysis</h3>
+                                        <p class="text-sm text-muted">Professor Smith • TTH 2:00-3:30 PM</p>
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <span class="badge badge-primary">4 Credits</span>
+                                            <span class="badge badge-outline badge-warning">B+</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <button class="btn btn-outline btn-sm">View Course</button>
+                                        <button class="btn btn-ghost btn-sm">Assignments</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">PHIL 201 - Logic and Reasoning</h3>
+                                        <p class="text-sm text-muted">Professor Davis • MWF 2:00-3:00 PM</p>
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <span class="badge badge-primary">3 Credits</span>
+                                            <span class="badge badge-outline badge-success">A</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <button class="btn btn-outline btn-sm">View Course</button>
+                                        <button class="btn btn-ghost btn-sm">Assignments</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/courses" class="btn btn-outline">View All Courses</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar Widgets -->
+                <div class="space-y-6">
+                    <!-- GPA Widget -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Academic Standing</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-success mb-2">3.75</div>
+                                <p class="text-sm text-muted mb-4">Cumulative GPA</p>
+                                <div class="progress-bar bg-muted rounded-full h-2">
+                                    <div class="progress-fill bg-success h-full rounded-full" style="width: 94%;"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-muted mt-2">
+                                    <span>0.0</span>
+                                    <span>4.0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Upcoming Deadlines -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Upcoming Deadlines</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-destructive rounded-full"></div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm">CSCI 334 Project</p>
+                                        <p class="text-xs text-muted">Due Tomorrow</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-warning rounded-full"></div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm">MATH 350 Problem Set</p>
+                                        <p class="text-xs text-muted">Due Dec 18</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-info rounded-full"></div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-sm">PHIL 201 Essay</p>
+                                        <p class="text-xs text-muted">Due Dec 20</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/assignments" class="btn btn-ghost btn-sm">View All</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Activity</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <span class="badge badge-success">Grade</span>
+                                    <div class="flex-1">
+                                        <p class="text-sm">Received A- on CSCI 334 Midterm</p>
+                                        <p class="text-xs text-muted">2 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="badge badge-info">Update</span>
+                                    <div class="flex-1">
+                                        <p class="text-sm">New announcement in MATH 350</p>
+                                        <p class="text-xs text-muted">1 day ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="badge badge-warning">Reminder</span>
+                                    <div class="flex-1">
+                                        <p class="text-sm">Course evaluation deadline approaching</p>
+                                        <p class="text-xs text-muted">2 days ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="/dev/scripts/core/theme-manager.js"></script>
+    <script src="/dev/scripts/core/accessibility.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mark body as ready for fade-in
+            document.body.classList.add('ready');
+            
+            // Setup user menu toggle
+            const userToggle = document.querySelector('.header-user-toggle');
+            const userMenu = document.querySelector('.header-user');
+            
+            if (userToggle && userMenu) {
+                userToggle.addEventListener('click', function() {
+                    const isOpen = userMenu.classList.contains('open');
+                    userMenu.classList.toggle('open');
+                    userToggle.setAttribute('aria-expanded', !isOpen);
+                });
+                
+                // Close on outside click
+                document.addEventListener('click', function(e) {
+                    if (!userMenu.contains(e.target)) {
+                        userMenu.classList.remove('open');
+                        userToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+            
+            // Announce page load for screen readers
+            if (window.a11y) {
+                window.a11y.announce('Dashboard loaded');
+            }
+            
+            console.log('Dashboard template loaded successfully');
+        });
+    </script>
+</body>
+</html>

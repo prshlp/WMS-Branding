@@ -1,0 +1,677 @@
+/* ==========================================================================
+   Table Components - Williams College Design System
+   Comprehensive table system with sorting, pagination, and accessibility
+   ========================================================================== */
+
+/* =================================
+   Base Table Component
+   ================================= */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: var(--card);
+  color: var(--card-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.table-wrapper {
+  position: relative;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--card);
+}
+
+.table-wrapper .table {
+  border: none;
+  border-radius: 0;
+}
+
+/* =================================
+   Table Header
+   ================================= */
+
+.table thead {
+  background-color: var(--muted);
+}
+
+.table th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-weight: var(--font-semibold);
+  color: var(--foreground);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.table th:first-child {
+  border-top-left-radius: var(--radius-lg);
+}
+
+.table th:last-child {
+  border-top-right-radius: var(--radius-lg);
+}
+
+/* Sortable headers */
+.table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: var(--space-8);
+  transition: var(--transition-colors);
+}
+
+.table th.sortable:hover {
+  background-color: var(--border);
+}
+
+.table th.sortable::after {
+  content: "";
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid var(--foreground-muted);
+  opacity: 0.5;
+  transition: var(--transition-colors);
+}
+
+.table th.sortable:hover::after {
+  opacity: 1;
+}
+
+/* Sort indicators */
+.table th.sort-asc::after {
+  border-bottom: 4px solid var(--primary);
+  border-top: none;
+  opacity: 1;
+}
+
+.table th.sort-desc::after {
+  border-top: 4px solid var(--primary);
+  border-bottom: none;
+  opacity: 1;
+}
+
+/* =================================
+   Table Body
+   ================================= */
+
+.table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition-colors);
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background-color: var(--muted);
+}
+
+.table td {
+  padding: var(--space-3) var(--space-4);
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: var(--radius-lg);
+}
+
+.table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: var(--radius-lg);
+}
+
+/* =================================
+   Table Variants
+   ================================= */
+
+/* Striped table */
+.table-striped tbody tr:nth-child(even) {
+  background-color: color-mix(in srgb, var(--muted) 50%, transparent);
+}
+
+/* Bordered table */
+.table-bordered {
+  border: 1px solid var(--border);
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid var(--border);
+}
+
+/* Borderless table */
+.table-borderless,
+.table-borderless th,
+.table-borderless td {
+  border: none;
+}
+
+/* Hoverable table */
+.table-hover tbody tr:hover {
+  background-color: var(--muted);
+}
+
+/* =================================
+   Table Sizes
+   ================================= */
+
+/* Small table */
+.table-sm th,
+.table-sm td {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs);
+}
+
+/* Large table */
+.table-lg th,
+.table-lg td {
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--text-base);
+}
+
+/* =================================
+   Table Cell Types
+   ================================= */
+
+/* Numeric columns */
+.table th.numeric,
+.table td.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Date columns */
+.table th.date,
+.table td.date {
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Action columns */
+.table th.actions,
+.table td.actions {
+  text-align: center;
+  white-space: nowrap;
+  width: 1%;
+}
+
+.table td.actions {
+  padding: var(--space-2);
+}
+
+/* Status columns */
+.table th.status,
+.table td.status {
+  text-align: center;
+  width: 1%;
+}
+
+/* Checkbox column */
+.table th.checkbox,
+.table td.checkbox {
+  text-align: center;
+  width: 1%;
+  padding: var(--space-2) var(--space-3);
+}
+
+/* =================================
+   Table Actions
+   ================================= */
+
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  justify-content: center;
+}
+
+.table-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--foreground-muted);
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+
+.table-action:hover,
+.table-action:focus {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.table-action:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.table-action.destructive:hover {
+  background-color: color-mix(in srgb, var(--destructive) 10%, transparent);
+  color: var(--destructive);
+}
+
+/* =================================
+   Table Selection
+   ================================= */
+
+.table tbody tr.selected {
+  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.table tbody tr.selected:hover {
+  background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+/* Select all checkbox */
+.table-select-all {
+  position: relative;
+}
+
+.table-select-all input[type="checkbox"]:indeterminate {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* =================================
+   Table Footer
+   ================================= */
+
+.table tfoot {
+  background-color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+.table tfoot th,
+.table tfoot td {
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--font-semibold);
+  border-bottom: none;
+}
+
+/* =================================
+   Data Table Controls
+   ================================= */
+
+.table-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.table-search {
+  position: relative;
+  min-width: 16rem;
+}
+
+.table-search input {
+  padding-right: var(--space-10);
+}
+
+.table-search-icon {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  color: var(--foreground-muted);
+}
+
+.table-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.table-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-top: 1px solid var(--border);
+  font-size: var(--text-sm);
+  color: var(--foreground-muted);
+}
+
+.table-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* =================================
+   Table Loading States
+   ================================= */
+
+.table-loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.table-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: color-mix(in srgb, var(--background) 80%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-skeleton {
+  background: linear-gradient(90deg, var(--muted) 25%, var(--border) 50%, var(--muted) 75%);
+  background-size: 200% 100%;
+  animation: table-shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+  height: 1rem;
+}
+
+@keyframes table-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* =================================
+   Table Empty State
+   ================================= */
+
+.table-empty {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  color: var(--foreground-muted);
+}
+
+.table-empty-icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto var(--space-4);
+  opacity: 0.5;
+}
+
+.table-empty-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-2);
+  color: var(--foreground);
+}
+
+.table-empty-description {
+  margin-bottom: var(--space-4);
+}
+
+/* =================================
+   Expandable Rows
+   ================================= */
+
+.table-row-expandable {
+  cursor: pointer;
+}
+
+.table-row-expandable .expand-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: var(--space-2);
+  border: none;
+  background: transparent;
+  color: var(--foreground-muted);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-colors);
+}
+
+.table-row-expandable .expand-toggle:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.table-row-expandable .expand-toggle::before {
+  content: "▶";
+  font-size: 0.75rem;
+  transition: transform 200ms ease;
+}
+
+.table-row-expandable.expanded .expand-toggle::before {
+  transform: rotate(90deg);
+}
+
+.table-row-detail {
+  display: none;
+  background-color: var(--muted);
+}
+
+.table-row-expandable.expanded + .table-row-detail {
+  display: table-row;
+}
+
+.table-row-detail td {
+  padding: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+/* =================================
+   Williams College Specific
+   ================================= */
+
+/* Williams branded table */
+.table-williams thead {
+  background-color: var(--williams-purple);
+  color: white;
+}
+
+.table-williams th {
+  color: white;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.table-williams th.sortable:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.table-williams th.sortable::after {
+  border-bottom-color: rgba(255, 255, 255, 0.7);
+}
+
+.table-williams th.sort-asc::after,
+.table-williams th.sort-desc::after {
+  border-color: var(--williams-gold);
+}
+
+/* =================================
+   CRM Table Integration
+   ================================= */
+
+/* Override CRM table styles */
+[data-crm-content] table {
+  @extend .table;
+}
+
+[data-crm-content] .data-table,
+[data-crm-content] .grid {
+  @extend .table-wrapper;
+}
+
+[data-crm-content] .table-header,
+[data-crm-content] .grid-header {
+  @extend .table-controls;
+}
+
+[data-crm-content] .table-footer,
+[data-crm-content] .grid-footer {
+  @extend .table-info;
+}
+
+/* CRM table actions */
+[data-crm-content] .table-actions,
+[data-crm-content] .grid-actions {
+  @extend .table-actions;
+}
+
+[data-crm-content] .action-button {
+  @extend .table-action;
+}
+
+/* =================================
+   Responsive Tables
+   ================================= */
+
+@media (max-width: 768px) {
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .table-stack {
+    display: block;
+  }
+  
+  .table-stack thead {
+    display: none;
+  }
+  
+  .table-stack tbody,
+  .table-stack tr,
+  .table-stack td {
+    display: block;
+  }
+  
+  .table-stack tr {
+    margin-bottom: var(--space-4);
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background-color: var(--card);
+  }
+  
+  .table-stack td {
+    text-align: left !important;
+    padding: var(--space-1) 0;
+    border: none;
+    position: relative;
+    padding-left: 50%;
+  }
+  
+  .table-stack td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-right: var(--space-2);
+    white-space: nowrap;
+    font-weight: var(--font-semibold);
+    color: var(--foreground);
+  }
+  
+  .table-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+  
+  .table-search {
+    min-width: auto;
+  }
+  
+  .table-info {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+  
+  .table-pagination {
+    justify-content: center;
+  }
+}
+
+/* =================================
+   Accessibility Enhancements
+   ================================= */
+
+/* Ensure table is properly labeled */
+.table[aria-label],
+.table caption {
+  /* Screen reader accessible */
+}
+
+.table caption {
+  padding: var(--space-4);
+  color: var(--foreground-muted);
+  text-align: left;
+  caption-side: top;
+}
+
+/* Focus indicators */
+.table th.sortable:focus-visible,
+.table-action:focus-visible,
+.expand-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Keyboard navigation */
+.table th.sortable[aria-sort="ascending"]::after {
+  border-bottom: 4px solid var(--primary);
+  border-top: none;
+}
+
+.table th.sortable[aria-sort="descending"]::after {
+  border-top: 4px solid var(--primary);
+  border-bottom: none;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .table,
+  .table th,
+  .table td {
+    border: 1px solid currentColor;
+  }
+  
+  .table tbody tr:hover {
+    background-color: var(--foreground);
+    color: var(--background);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .table-skeleton,
+  .expand-toggle::before {
+    animation: none;
+    transition: none;
+  }
+}

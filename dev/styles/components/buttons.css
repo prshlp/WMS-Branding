@@ -1,0 +1,362 @@
+/* ==========================================================================
+   Button Components - Williams College Design System
+   shadcn-inspired button system with variants and states
+   ========================================================================== */
+
+/* =================================
+   Base Button Styles
+   ================================= */
+
+.btn {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  
+  /* Sizing */
+  height: 2.5rem;
+  padding: var(--space-2) var(--space-4);
+  
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: 1;
+  white-space: nowrap;
+  
+  /* Appearance */
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  
+  /* Transitions */
+  transition: var(--transition-colors), var(--transition-transform);
+  
+  /* States */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Focus styles */
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Loading state */
+.btn[aria-busy="true"] {
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  margin: auto;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  border-top-color: currentColor;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =================================
+   Button Variants
+   ================================= */
+
+/* Default/Primary variant */
+.btn-primary,
+.btn[data-variant="primary"] {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover:not(:disabled),
+.btn[data-variant="primary"]:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active:not(:disabled),
+.btn[data-variant="primary"]:active:not(:disabled) {
+  background-color: var(--primary-active);
+  border-color: var(--primary-active);
+  transform: translateY(0);
+}
+
+/* Secondary variant */
+.btn-secondary,
+.btn[data-variant="secondary"] {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  border-color: var(--secondary);
+}
+
+.btn-secondary:hover:not(:disabled),
+.btn[data-variant="secondary"]:hover:not(:disabled) {
+  background-color: var(--secondary-hover);
+  border-color: var(--secondary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary:active:not(:disabled),
+.btn[data-variant="secondary"]:active:not(:disabled) {
+  background-color: var(--secondary-active);
+  border-color: var(--secondary-active);
+  transform: translateY(0);
+}
+
+/* Outline variant */
+.btn-outline,
+.btn[data-variant="outline"] {
+  background-color: transparent;
+  color: var(--primary);
+  border-color: var(--border);
+}
+
+.btn-outline:hover:not(:disabled),
+.btn[data-variant="outline"]:hover:not(:disabled) {
+  background-color: var(--muted);
+  border-color: var(--primary);
+}
+
+.btn-outline:active:not(:disabled),
+.btn[data-variant="outline"]:active:not(:disabled) {
+  background-color: var(--muted);
+}
+
+/* Ghost variant */
+.btn-ghost,
+.btn[data-variant="ghost"] {
+  background-color: transparent;
+  color: var(--foreground);
+  border-color: transparent;
+}
+
+.btn-ghost:hover:not(:disabled),
+.btn[data-variant="ghost"]:hover:not(:disabled) {
+  background-color: var(--muted);
+}
+
+.btn-ghost:active:not(:disabled),
+.btn[data-variant="ghost"]:active:not(:disabled) {
+  background-color: var(--muted);
+}
+
+/* Link variant */
+.btn-link,
+.btn[data-variant="link"] {
+  background-color: transparent;
+  color: var(--primary);
+  border-color: transparent;
+  height: auto;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.btn-link:hover:not(:disabled),
+.btn[data-variant="link"]:hover:not(:disabled) {
+  color: var(--primary-hover);
+  text-decoration-thickness: 2px;
+}
+
+/* Destructive variant */
+.btn-destructive,
+.btn[data-variant="destructive"] {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+  border-color: var(--destructive);
+}
+
+.btn-destructive:hover:not(:disabled),
+.btn[data-variant="destructive"]:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--destructive) 85%, black);
+  border-color: color-mix(in srgb, var(--destructive) 85%, black);
+}
+
+/* =================================
+   Button Sizes
+   ================================= */
+
+/* Small */
+.btn-sm,
+.btn[data-size="sm"] {
+  height: 2rem;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+}
+
+/* Medium (default) */
+.btn-md,
+.btn[data-size="md"] {
+  height: 2.5rem;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+/* Large */
+.btn-lg,
+.btn[data-size="lg"] {
+  height: 3rem;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+}
+
+/* Icon-only button */
+.btn-icon,
+.btn[data-size="icon"] {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+}
+
+.btn-icon.btn-sm,
+.btn[data-size="icon"].btn-sm {
+  width: 2rem;
+  height: 2rem;
+}
+
+.btn-icon.btn-lg,
+.btn[data-size="icon"].btn-lg {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* =================================
+   Button Groups
+   ================================= */
+
+.btn-group {
+  display: inline-flex;
+  gap: 0;
+}
+
+.btn-group .btn {
+  border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+  border-top-left-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+}
+
+.btn-group .btn:last-child {
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+.btn-group .btn:not(:last-child) {
+  border-right-width: 0;
+}
+
+/* Vertical button group */
+.btn-group-vertical {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.btn-group-vertical .btn {
+  border-radius: 0;
+}
+
+.btn-group-vertical .btn:first-child {
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+}
+
+.btn-group-vertical .btn:last-child {
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+.btn-group-vertical .btn:not(:last-child) {
+  border-bottom-width: 0;
+}
+
+/* =================================
+   Special Button Types
+   ================================= */
+
+/* Full width button */
+.btn-block {
+  width: 100%;
+}
+
+/* Rounded button */
+.btn-rounded {
+  border-radius: var(--radius-full);
+}
+
+/* Square button */
+.btn-square {
+  border-radius: 0;
+}
+
+/* Floating Action Button */
+.btn-fab {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  padding: 0;
+  z-index: var(--z-fixed);
+}
+
+.btn-fab:hover {
+  box-shadow: var(--shadow-xl);
+  transform: scale(1.05);
+}
+
+/* =================================
+   CRM Override Compatibility
+   ================================= */
+
+/* Override CRM button styles */
+.no-touch button,
+.no-touch input[type="button"],
+.no-touch input[type="submit"],
+.no-touch ul.action a {
+  @extend .btn;
+  @extend .btn-primary;
+}
+
+/* CRM default button override */
+.no-touch button.default,
+.no-touch input[type="button"].default,
+.no-touch input[type="submit"].default,
+.no-touch ul.action a.default {
+  @extend .btn;
+  @extend .btn-primary;
+}
+
+/* Ensure CRM buttons respect our design system */
+button:not([class*="btn"]),
+input[type="button"]:not([class*="btn"]),
+input[type="submit"]:not([class*="btn"]) {
+  @extend .btn;
+  @extend .btn-outline;
+}

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#500082">
+    <title>Williams College Design System - Component Showcase</title>
+    
+    <!-- Design System Styles -->
+    <link href="/dev/styles/base/design-tokens.css" rel="stylesheet">
+    <link href="/dev/styles/base/reset.css" rel="stylesheet">
+    <link href="/dev/styles/base/typography.css" rel="stylesheet">
+    
+    <!-- Component Styles -->
+    <link href="/dev/styles/components/buttons.css" rel="stylesheet">
+    <link href="/dev/styles/components/forms.css" rel="stylesheet">
+    <link href="/dev/styles/components/cards.css" rel="stylesheet">
+    <link href="/dev/styles/components/navigation.css" rel="stylesheet">
+    <link href="/dev/styles/components/modals.css" rel="stylesheet">
+    <link href="/dev/styles/components/alerts.css" rel="stylesheet">
+    <link href="/dev/styles/components/badges.css" rel="stylesheet">
+    <link href="/dev/styles/components/tables.css" rel="stylesheet">
+    
+    <!-- Layout Styles -->
+    <link href="/dev/styles/layouts/containers.css" rel="stylesheet">
+    <link href="/dev/styles/layouts/grid.css" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
+    <link href="/dev/styles/main.css" rel="stylesheet">
+    
+    <style>
+        /* Demo-specific styles */
+        .demo-section {
+            margin-bottom: var(--space-12);
+            padding: var(--space-6);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background-color: var(--card);
+        }
+        
+        .demo-title {
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-2);
+            border-bottom: 1px solid var(--border);
+            color: var(--primary);
+        }
+        
+        .demo-grid {
+            display: grid;
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+        
+        .demo-item {
+            padding: var(--space-3);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius-md);
+            background-color: var(--muted);
+        }
+        
+        .code-block {
+            background-color: var(--muted);
+            padding: var(--space-3);
+            border-radius: var(--radius-md);
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            margin-top: var(--space-2);
+            overflow-x: auto;
+        }
+        
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2);
+            border-radius: var(--radius-md);
+            background-color: var(--card);
+            border: 1px solid var(--border);
+        }
+        
+        .color-circle {
+            width: 2rem;
+            height: 2rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        
+        .color-info {
+            flex: 1;
+        }
+        
+        .color-name {
+            font-weight: var(--font-semibold);
+            font-size: var(--text-sm);
+        }
+        
+        .color-value {
+            font-size: var(--text-xs);
+            color: var(--foreground-muted);
+            font-family: var(--font-mono);
+        }
+        
+        /* Header styles */
+        .showcase-header {
+            background: linear-gradient(135deg, var(--williams-purple) 0%, var(--williams-pink) 100%);
+            color: white;
+            padding: var(--space-8) 0;
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+        
+        .showcase-header h1 {
+            color: white;
+            margin-bottom: var(--space-2);
+        }
+        
+        .showcase-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--text-lg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="showcase-header">
+        <div class="container">
+            <h1>Williams College Design System</h1>
+            <p>Component Showcase and Documentation</p>
+            <div class="flex justify-center mt-6">
+                <button type="button" class="theme-toggle" data-theme-toggle="cycle" aria-label="Toggle theme">
+                    <svg data-theme-icon="light" class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M10 2V4M10 16V18M4 10H2M6.31412 6.31412L4.8999 4.8999M13.6859 6.31412L15.1001 4.8999M6.31412 13.69L4.8999 15.1001M13.6859 13.69L15.1001 15.1001M18 10H16M14 10C14 7.79086 12.2091 6 10 6C7.79086 6 6 7.79086 6 10C6 12.2091 7.79086 14 10 14C12.2091 14 14 12.2091 14 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <svg data-theme-icon="dark" class="theme-icon theme-icon--dark" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" fill="currentColor"/>
+                    </svg>
+                    <svg data-theme-icon="auto" class="theme-icon theme-icon--auto" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M10 2C10 1.44772 9.55228 1 9 1C8.44772 1 8 1.44772 8 2V3C8 3.55228 8.44772 4 9 4C9.55228 4 10 3.55228 10 3V2Z" fill="currentColor"/>
+                        <path d="M14 10C14 12.2091 12.2091 14 10 14V10H14Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Color System -->
+        <section class="demo-section">
+            <h2 class="demo-title">Color System</h2>
+            <p class="mb-6">Williams College brand colors with semantic design tokens supporting light and dark themes.</p>
+            
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="color-circle" style="background-color: var(--williams-purple);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Williams Purple</div>
+                        <div class="color-value">#500082</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background-color: var(--williams-gold);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Williams Gold</div>
+                        <div class="color-value">#FFBE0A</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background-color: var(--primary);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Primary</div>
+                        <div class="color-value">var(--primary)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background-color: var(--secondary);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Secondary</div>
+                        <div class="color-value">var(--secondary)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background-color: var(--success);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Success</div>
+                        <div class="color-value">var(--success)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background-color: var(--warning);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Warning</div>
+                        <div class="color-value">var(--warning)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background-color: var(--destructive);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Error</div>
+                        <div class="color-value">var(--destructive)</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-circle" style="background-color: var(--info);"></div>
+                    <div class="color-info">
+                        <div class="color-name">Info</div>
+                        <div class="color-value">var(--info)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section class="demo-section">
+            <h2 class="demo-title">Typography</h2>
+            <p class="mb-6">Responsive typography system using Williams College fonts.</p>
+            
+            <div class="demo-grid">
+                <div>
+                    <h1>Heading 1 - EphSerif</h1>
+                    <h2>Heading 2 - EphSerif</h2>
+                    <h3>Heading 3 - EphSerif</h3>
+                    <h4>Heading 4 - EphSerif</h4>
+                    <h5>Heading 5 - EphSerif</h5>
+                    <h6>Heading 6 - EphSerif</h6>
+                </div>
+                <div>
+                    <p class="lead">Lead paragraph with enhanced readability and visual hierarchy.</p>
+                    <p>Regular paragraph text using Inter font family for optimal readability across all devices and screen sizes.</p>
+                    <p class="text-sm">Small text for captions and metadata.</p>
+                    <p class="text-muted">Muted text for less important information.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons -->
+        <section class="demo-section">
+            <h2 class="demo-title">Buttons</h2>
+            <p class="mb-6">Comprehensive button system with variants, sizes, and states.</p>
+            
+            <div class="demo-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Primary Buttons -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Primary Buttons</h4>
+                    <div class="flex flex-col gap-2">
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-primary" disabled>Disabled</button>
+                        <button class="btn btn-primary" aria-busy="true">Loading</button>
+                    </div>
+                </div>
+
+                <!-- Secondary Buttons -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Secondary Buttons</h4>
+                    <div class="flex flex-col gap-2">
+                        <button class="btn btn-secondary">Secondary</button>
+                        <button class="btn btn-outline">Outline</button>
+                        <button class="btn btn-ghost">Ghost</button>
+                    </div>
+                </div>
+
+                <!-- Button Sizes -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Button Sizes</h4>
+                    <div class="flex flex-col gap-2">
+                        <button class="btn btn-primary btn-sm">Small</button>
+                        <button class="btn btn-primary">Medium</button>
+                        <button class="btn btn-primary btn-lg">Large</button>
+                    </div>
+                </div>
+
+                <!-- State Buttons -->
+                <div class="demo-item">
+                    <h4 class="mb-3">State Buttons</h4>
+                    <div class="flex flex-col gap-2">
+                        <button class="btn btn-success">Success</button>
+                        <button class="btn btn-warning">Warning</button>
+                        <button class="btn btn-destructive">Destructive</button>
+                    </div>
+                </div>
+
+                <!-- Icon Buttons -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Icon Buttons</h4>
+                    <div class="flex gap-2">
+                        <button class="btn btn-primary btn-icon">+</button>
+                        <button class="btn btn-outline btn-icon">×</button>
+                        <button class="btn btn-ghost btn-icon">⚙</button>
+                    </div>
+                </div>
+
+                <!-- Button Groups -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Button Groups</h4>
+                    <div class="btn-group">
+                        <button class="btn btn-outline">Left</button>
+                        <button class="btn btn-outline">Middle</button>
+                        <button class="btn btn-outline">Right</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+&lt;button class="btn btn-primary"&gt;Primary Button&lt;/button&gt;
+&lt;button class="btn btn-outline"&gt;Outline Button&lt;/button&gt;
+&lt;button class="btn btn-ghost btn-sm"&gt;Small Ghost&lt;/button&gt;
+            </div>
+        </section>
+
+        <!-- Forms -->
+        <section class="demo-section">
+            <h2 class="demo-title">Form Components</h2>
+            <p class="mb-6">Accessible form components with validation states and proper labeling.</p>
+            
+            <div class="demo-grid grid-cols-1 lg:grid-cols-2">
+                <!-- Basic Form -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Basic Form</h4>
+                    <form class="flex flex-col gap-4">
+                        <div class="form-group">
+                            <label for="name" class="form-label required">Full Name</label>
+                            <input type="text" id="name" class="form-input" placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label required">Email</label>
+                            <input type="email" id="email" class="form-input" placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-textarea" placeholder="Enter your message" rows="3"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <!-- Form Controls -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Form Controls</h4>
+                    <div class="flex flex-col gap-4">
+                        <div class="form-group">
+                            <label for="select" class="form-label">Select Option</label>
+                            <select id="select" class="form-select">
+                                <option>Choose an option</option>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input type="checkbox" id="checkbox" class="form-check-input">
+                            <label for="checkbox" class="form-check-label">I agree to the terms</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input type="radio" id="radio1" name="radio" class="form-check-input">
+                            <label for="radio1" class="form-check-label">Option 1</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input type="radio" id="radio2" name="radio" class="form-check-input">
+                            <label for="radio2" class="form-check-label">Option 2</label>
+                        </div>
+                        
+                        <div class="form-switch">
+                            <input type="checkbox" id="switch" class="form-switch-input">
+                            <label for="switch" class="form-check-label">Enable notifications</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cards -->
+        <section class="demo-section">
+            <h2 class="demo-title">Cards</h2>
+            <p class="mb-6">Flexible card components for content organization.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Basic Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Basic Card</h3>
+                        <p class="card-description">Simple card with header and content.</p>
+                    </div>
+                    <div class="card-body">
+                        <p>This is the card content area. It can contain any type of content including text, images, and other components.</p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-sm">Action</button>
+                        <button class="btn btn-outline btn-sm">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Primary Card -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Primary Card</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>This card uses the primary color scheme with white text on purple background.</p>
+                    </div>
+                </div>
+
+                <!-- Card with Badge -->
+                <div class="card card-hover">
+                    <div class="card-badge badge badge-success">New</div>
+                    <div class="card-header">
+                        <h3 class="card-title">Interactive Card</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>This card has hover effects and includes a status badge.</p>
+                        <div class="card-tags">
+                            <span class="card-tag">Tag 1</span>
+                            <span class="card-tag">Tag 2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alerts -->
+        <section class="demo-section">
+            <h2 class="demo-title">Alerts & Notifications</h2>
+            <p class="mb-6">Alert components for user feedback and notifications.</p>
+            
+            <div class="demo-grid">
+                <div class="alert alert-info">
+                    <div class="alert-icon">ℹ</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Information</div>
+                        <div class="alert-description">This is an informational alert message.</div>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <div class="alert-icon">✓</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Success</div>
+                        <div class="alert-description">Your action was completed successfully.</div>
+                    </div>
+                    <button class="alert-dismiss" aria-label="Close"></button>
+                </div>
+
+                <div class="alert alert-warning">
+                    <div class="alert-icon">⚠</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Warning</div>
+                        <div class="alert-description">Please review your input before proceeding.</div>
+                    </div>
+                </div>
+
+                <div class="alert alert-error">
+                    <div class="alert-icon">✕</div>
+                    <div class="alert-content">
+                        <div class="alert-title">Error</div>
+                        <div class="alert-description">An error occurred while processing your request.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Badges -->
+        <section class="demo-section">
+            <h2 class="demo-title">Badges & Status Indicators</h2>
+            <p class="mb-6">Status indicators and labels for content categorization.</p>
+            
+            <div class="demo-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Badge Variants -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Badge Variants</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge badge-default">Default</span>
+                        <span class="badge badge-primary">Primary</span>
+                        <span class="badge badge-secondary">Secondary</span>
+                        <span class="badge badge-success">Success</span>
+                        <span class="badge badge-warning">Warning</span>
+                        <span class="badge badge-error">Error</span>
+                    </div>
+                </div>
+
+                <!-- Badge Styles -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Badge Styles</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="badge badge-primary">Filled</span>
+                        <span class="badge badge-outline badge-primary">Outline</span>
+                        <span class="badge badge-soft badge-primary">Soft</span>
+                    </div>
+                </div>
+
+                <!-- Status Indicators -->
+                <div class="demo-item">
+                    <h4 class="mb-3">Status Indicators</h4>
+                    <div class="flex flex-col gap-2">
+                        <div class="status status-online">
+                            <div class="status-indicator"></div>
+                            <span>Online</span>
+                        </div>
+                        <div class="status status-busy">
+                            <div class="status-indicator"></div>
+                            <span>Busy</span>
+                        </div>
+                        <div class="status status-away">
+                            <div class="status-indicator"></div>
+                            <span>Away</span>
+                        </div>
+                        <div class="status status-offline">
+                            <div class="status-indicator"></div>
+                            <span>Offline</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tables -->
+        <section class="demo-section">
+            <h2 class="demo-title">Tables</h2>
+            <p class="mb-6">Responsive table components with sorting and pagination support.</p>
+            
+            <div class="table-wrapper">
+                <div class="table-controls">
+                    <div class="table-search">
+                        <input type="text" placeholder="Search..." class="form-input">
+                        <div class="table-search-icon">🔍</div>
+                    </div>
+                    <div class="table-filters">
+                        <select class="form-select">
+                            <option>All Status</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="checkbox">
+                                <input type="checkbox" class="form-check-input">
+                            </th>
+                            <th class="sortable">Name</th>
+                            <th class="sortable">Email</th>
+                            <th class="sortable">Status</th>
+                            <th class="sortable numeric">Score</th>
+                            <th class="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="checkbox">
+                                <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>John Doe</td>
+                            <td>john@williams.edu</td>
+                            <td>
+                                <span class="badge badge-success">Active</span>
+                            </td>
+                            <td class="numeric">95.5</td>
+                            <td class="actions">
+                                <div class="table-actions">
+                                    <button class="table-action" aria-label="Edit">✎</button>
+                                    <button class="table-action destructive" aria-label="Delete">🗑</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="checkbox">
+                                <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>Jane Smith</td>
+                            <td>jane@williams.edu</td>
+                            <td>
+                                <span class="badge badge-warning">Pending</span>
+                            </td>
+                            <td class="numeric">87.2</td>
+                            <td class="actions">
+                                <div class="table-actions">
+                                    <button class="table-action" aria-label="Edit">✎</button>
+                                    <button class="table-action destructive" aria-label="Delete">🗑</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="checkbox">
+                                <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>Bob Johnson</td>
+                            <td>bob@williams.edu</td>
+                            <td>
+                                <span class="badge badge-error">Inactive</span>
+                            </td>
+                            <td class="numeric">73.8</td>
+                            <td class="actions">
+                                <div class="table-actions">
+                                    <button class="table-action" aria-label="Edit">✎</button>
+                                    <button class="table-action destructive" aria-label="Delete">🗑</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="table-info">
+                    <div>Showing 1-3 of 10 results</div>
+                    <div class="table-pagination">
+                        <div class="pagination">
+                            <div class="pagination-item">
+                                <a href="#" class="pagination-link disabled">‹</a>
+                            </div>
+                            <div class="pagination-item">
+                                <a href="#" class="pagination-link active">1</a>
+                            </div>
+                            <div class="pagination-item">
+                                <a href="#" class="pagination-link">2</a>
+                            </div>
+                            <div class="pagination-item">
+                                <a href="#" class="pagination-link">3</a>
+                            </div>
+                            <div class="pagination-item">
+                                <a href="#" class="pagination-link">›</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <section class="demo-section">
+            <h2 class="demo-title">Navigation</h2>
+            <p class="mb-6">Navigation components including tabs, breadcrumbs, and pagination.</p>
+            
+            <div class="demo-grid">
+                <!-- Tabs Navigation -->
+                <div>
+                    <h4 class="mb-3">Tabs Navigation</h4>
+                    <nav class="nav nav-tabs">
+                        <div class="nav-item">
+                            <a href="#" class="nav-link active">Overview</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="nav-link">Details</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="nav-link">Settings</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="nav-link" aria-disabled="true">Disabled</a>
+                        </div>
+                    </nav>
+                </div>
+
+                <!-- Pills Navigation -->
+                <div>
+                    <h4 class="mb-3">Pills Navigation</h4>
+                    <nav class="nav nav-pills">
+                        <div class="nav-item">
+                            <a href="#" class="nav-link active">Active</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="nav-link">Link</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="nav-link">Another Link</a>
+                        </div>
+                    </nav>
+                </div>
+
+                <!-- Breadcrumbs -->
+                <div>
+                    <h4 class="mb-3">Breadcrumbs</h4>
+                    <nav class="breadcrumb">
+                        <div class="breadcrumb-item">
+                            <a href="#">Home</a>
+                        </div>
+                        <div class="breadcrumb-item">
+                            <a href="#">Library</a>
+                        </div>
+                        <div class="breadcrumb-item active">
+                            Current Page
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <!-- Layout Grid -->
+        <section class="demo-section">
+            <h2 class="demo-title">Layout Grid</h2>
+            <p class="mb-6">Responsive grid system using CSS Grid and Flexbox.</p>
+            
+            <div class="demo-grid">
+                <!-- CSS Grid Example -->
+                <div>
+                    <h4 class="mb-3">CSS Grid (3 Columns)</h4>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="demo-item">Item 1</div>
+                        <div class="demo-item">Item 2</div>
+                        <div class="demo-item">Item 3</div>
+                        <div class="demo-item">Item 4</div>
+                        <div class="demo-item">Item 5</div>
+                        <div class="demo-item">Item 6</div>
+                    </div>
+                </div>
+
+                <!-- Flexbox Example -->
+                <div>
+                    <h4 class="mb-3">Flexbox Layout</h4>
+                    <div class="flex gap-4">
+                        <div class="demo-item flex-1">Flexible 1</div>
+                        <div class="demo-item flex-1">Flexible 2</div>
+                        <div class="demo-item flex-none" style="width: 100px;">Fixed</div>
+                    </div>
+                </div>
+
+                <!-- Responsive Grid -->
+                <div>
+                    <h4 class="mb-3">Responsive Grid</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="demo-item">Responsive 1</div>
+                        <div class="demo-item">Responsive 2</div>
+                        <div class="demo-item">Responsive 3</div>
+                        <div class="demo-item">Responsive 4</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 py-8 bg-muted">
+        <div class="container text-center">
+            <p class="text-muted">Williams College Design System v2.0</p>
+            <p class="text-sm text-muted">Built with accessibility, performance, and maintainability in mind.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/dev/scripts/core/theme-manager.js"></script>
+    <script>
+        // Demo-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make table headers sortable
+            document.querySelectorAll('.table th.sortable').forEach(th => {
+                th.addEventListener('click', function() {
+                    // Remove sort classes from other headers
+                    document.querySelectorAll('.table th.sortable').forEach(header => {
+                        if (header !== this) {
+                            header.classList.remove('sort-asc', 'sort-desc');
+                        }
+                    });
+                    
+                    // Toggle sort on clicked header
+                    if (this.classList.contains('sort-asc')) {
+                        this.classList.remove('sort-asc');
+                        this.classList.add('sort-desc');
+                    } else if (this.classList.contains('sort-desc')) {
+                        this.classList.remove('sort-desc');
+                    } else {
+                        this.classList.add('sort-asc');
+                    }
+                });
+            });
+
+            // Animate badges on hover
+            document.querySelectorAll('.badge').forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                });
+                badge.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            console.log('Williams College Design System Demo Loaded');
+        });
+    </script>
+</body>
+</html>

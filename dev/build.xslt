@@ -1,36 +1,70 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xsl:stylesheet version="1.0" exclude-result-prefixes="xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:fw="http://technolutions.com/framework" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="/">
-    <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <html lang="en" xmlns="http://www.w3.org/1999/xhtml" data-theme="auto">
       <template path="/shared/base.xslt" xmlns="http://technolutions.com/framework" />
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css?v=2" rel="stylesheet" crossorigin="anonymous" />
-        <!-- Core styles with versioning -->
-        <link href="/dev/styles/variables.css" rel="stylesheet" />
-        <link href="/dev/styles/fonts.css?v=20250519002100" rel="stylesheet" />
-        <link href="/dev/styles/build.css?v=3" rel="stylesheet" />
-        <link href="/dev/styles/loginStyles.css?v=1.0.1" rel="stylesheet" />
-        <link href="/dev/styles/FormStyles.css?v=1.1.5" rel="stylesheet" />
+        <meta name="theme-color" content="#500082" />
+        <meta name="color-scheme" content="light dark" />
+        
+        <!-- Performance optimized loading -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous" />
+        <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+        
+        <!-- Williams College Design System v2.0 - Production Bundle -->
+        <link href="/dev/styles/main.css?v=2.0.0" rel="stylesheet" />
+        
+        <!-- Skip navigation link -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+        
         <xsl:apply-templates select="xhtml:html/xhtml:head/node()" />
+        
+        <!-- Critical CSS for initial page load -->
         <style><![CDATA[
-    /* Essential fade-in animation styles */
-    body {
-      opacity: 0;
-      transition: opacity 0.3s ease-in;
-    }
-
-    body.fade-in {
-      opacity: 1;
-    }
-]]></style>
+          :root {
+            --williams-purple: #500082;
+            --williams-gold: #ffbe0a;
+            --background: #ffffff;
+            --foreground: #18181b;
+          }
+          [data-theme="dark"] {
+            --background: #09090b;
+            --foreground: #fafafa;
+          }
+          @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+              --background: #09090b;
+              --foreground: #fafafa;
+            }
+          }
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            opacity: 0;
+            transition: opacity 300ms ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+          body.ready {
+            opacity: 1;
+          }
+        ]]></style>
+        
+        <!-- Theme detection script -->
         <script><![CDATA[
-          document.addEventListener("DOMContentLoaded", function() {
-            document.body.classList.add('fade-in');
-          });
-]]></script>
+          (function() {
+            const theme = localStorage.getItem('williams-theme') || 'auto';
+            if (theme === 'auto') {
+              const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+              document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            } else {
+              document.documentElement.setAttribute('data-theme', theme);
+            }
+          })();
+        ]]></script>
       </head>
       <body>
         <!-- Header -->

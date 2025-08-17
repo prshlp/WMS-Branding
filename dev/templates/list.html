@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#500082">
+    <title>Student Records - Williams College</title>
+    
+    <!-- Performance optimized loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    
+    <!-- Critical CSS inlined for optimal performance -->
+    <style id="critical-css">
+        :root {
+            --williams-purple: #500082;
+            --williams-gold: #ffbe0a;
+            --background: #ffffff;
+            --foreground: #18181b;
+        }
+        [data-theme="dark"] {
+            --background: #09090b;
+            --foreground: #fafafa;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --background: #09090b;
+                --foreground: #fafafa;
+            }
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            opacity: 0;
+            transition: opacity 300ms ease;
+        }
+        body.ready { opacity: 1; }
+        .table-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 0.5rem;
+            height: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+    
+    <!-- Design System Styles -->
+    <link href="/dev/styles/main.css" rel="stylesheet">
+    
+    <!-- Theme detection script -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('williams-theme') || 'auto';
+            if (theme === 'auto') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Page Layout -->
+    <div class="layout-list">
+        <!-- Header -->
+        <header class="list-header site-header compact">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-brand">
+                        <a href="/" class="header-logo">
+                            <img src="https://connect.williams.edu/www/images/Branding/hEADER.png" 
+                                 alt="Williams College" 
+                                 width="200" 
+                                 height="32">
+                        </a>
+                        <h1 class="header-page-title">Student Records</h1>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <!-- Search -->
+                        <div class="header-search">
+                            <input type="search" 
+                                   class="header-search-input" 
+                                   placeholder="Search students..."
+                                   aria-label="Search students"
+                                   id="global-search">
+                            <button class="header-search-button" aria-label="Search">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="m11.742 10.344 6.814 6.814a1 1 0 0 1-1.414 1.414l-6.814-6.814a6 6 0 1 1 1.414-1.414zM5 10a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Theme Toggle -->
+                        <button type="button" class="header-theme-toggle theme-toggle" data-theme-toggle="cycle" aria-label="Toggle theme">
+                            <svg data-theme-icon="light" class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 2V4M10 16V18M4 10H2M6.31412 6.31412L4.8999 4.8999M13.6859 6.31412L15.1001 4.8999M6.31412 13.69L4.8999 15.1001M13.6859 13.69L15.1001 15.1001M18 10H16M14 10C14 7.79086 12.2091 6 10 6C7.79086 6 6 7.79086 6 10C6 12.2091 7.79086 14 10 14C12.2091 14 14 12.2091 14 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg data-theme-icon="dark" class="theme-icon theme-icon--dark" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" fill="currentColor"/>
+                            </svg>
+                            <svg data-theme-icon="auto" class="theme-icon theme-icon--auto" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 2C10 1.44772 9.55228 1 9 1C8.44772 1 8 1.44772 8 2V3C8 3.55228 8.44772 4 9 4C9.55228 4 10 3.55228 10 3V2Z" fill="currentColor"/>
+                                <path d="M14 10C14 12.2091 12.2091 14 10 14V10H14Z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- User Menu -->
+                        <div class="header-user">
+                            <button class="header-user-toggle" aria-expanded="false">
+                                <div class="header-user-avatar">AD</div>
+                                <span class="header-user-name">Admin User</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="m4 6 4 4 4-4"/>
+                                </svg>
+                            </button>
+                            <div class="header-user-menu">
+                                <a href="/dashboard">Dashboard</a>
+                                <a href="/profile">View Profile</a>
+                                <a href="/settings">Account Settings</a>
+                                <hr style="border: none; border-top: 1px solid var(--border); margin: 0.5rem 0;">
+                                <a href="/logout">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="list-main" id="main-content" data-crm-content="true">
+            <!-- Breadcrumbs -->
+            <div class="container">
+                <nav class="breadcrumb mb-6" aria-label="Breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="/">Home</a>
+                    </div>
+                    <div class="breadcrumb-item">
+                        <a href="/admin">Administration</a>
+                    </div>
+                    <div class="breadcrumb-item active" aria-current="page">
+                        Student Records
+                    </div>
+                </nav>
+            </div>
+            
+            <!-- List Header -->
+            <section class="list-hero bg-muted py-6">
+                <div class="container">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold mb-2">Student Records</h1>
+                            <p class="text-muted">Manage and view student academic records</p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button class="btn btn-outline" id="export-data">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                </svg>
+                                Export Data
+                            </button>
+                            <button class="btn btn-primary" id="add-student">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                                Add Student
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Filters and Controls -->
+            <section class="list-controls py-6 border-b border-border">
+                <div class="container">
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+                        <div class="form_question">
+                            <label class="form_label" for="class-filter">Class Year</label>
+                            <select id="class-filter">
+                                <option value="">All Years</option>
+                                <option value="2025">Class of 2025</option>
+                                <option value="2026">Class of 2026</option>
+                                <option value="2027">Class of 2027</option>
+                                <option value="2028">Class of 2028</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form_question">
+                            <label class="form_label" for="major-filter">Major</label>
+                            <select id="major-filter">
+                                <option value="">All Majors</option>
+                                <option value="CSCI">Computer Science</option>
+                                <option value="MATH">Mathematics</option>
+                                <option value="ECON">Economics</option>
+                                <option value="ENGL">English</option>
+                                <option value="PSYC">Psychology</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form_question">
+                            <label class="form_label" for="status-filter">Status</label>
+                            <select id="status-filter">
+                                <option value="">All Statuses</option>
+                                <option value="active">Active</option>
+                                <option value="leave">Leave of Absence</option>
+                                <option value="graduated">Graduated</option>
+                                <option value="withdrawn">Withdrawn</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form_question">
+                            <label class="form_label" for="search-field">Search</label>
+                            <input type="search" id="search-field" placeholder="Name, ID, or email...">
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <button class="btn btn-ghost btn-sm" id="clear-filters">Clear Filters</button>
+                            <div class="text-sm text-muted">
+                                Showing <span id="showing-count">1-50</span> of <span id="total-count">1,247</span> students
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <label for="per-page" class="text-sm text-muted">Show:</label>
+                            <select id="per-page" class="form-control-sm">
+                                <option value="25">25</option>
+                                <option value="50" selected>50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Data Table -->
+            <section class="list-content py-6">
+                <div class="container">
+                    <div class="data-table-wrapper">
+                        <div class="data-table" role="region" aria-label="Student records table" tabindex="0">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <input type="checkbox" id="select-all" aria-label="Select all students">
+                                        </th>
+                                        <th scope="col" class="sortable" data-sort="id">
+                                            Student ID
+                                            <svg class="sort-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                                <path d="M6 3l3 3H3l3-3zm0 6L3 6h6l-3 3z"/>
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="sortable" data-sort="name">
+                                            Name
+                                            <svg class="sort-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                                <path d="M6 3l3 3H3l3-3zm0 6L3 6h6l-3 3z"/>
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="sortable" data-sort="email">
+                                            Email
+                                            <svg class="sort-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                                <path d="M6 3l3 3H3l3-3zm0 6L3 6h6l-3 3z"/>
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="sortable" data-sort="class">
+                                            Class Year
+                                            <svg class="sort-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                                <path d="M6 3l3 3H3l3-3zm0 6L3 6h6l-3 3z"/>
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="sortable" data-sort="major">
+                                            Major
+                                            <svg class="sort-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                                <path d="M6 3l3 3H3l3-3zm0 6L3 6h6l-3 3z"/>
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="sortable" data-sort="gpa">
+                                            GPA
+                                            <svg class="sort-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                                <path d="M6 3l3 3H3l3-3zm0 6L3 6h6l-3 3z"/>
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="sortable" data-sort="status">
+                                            Status
+                                            <svg class="sort-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                                <path d="M6 3l3 3H3l3-3zm0 6L3 6h6l-3 3z"/>
+                                            </svg>
+                                        </th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="students-table-body">
+                                    <tr>
+                                        <td><input type="checkbox" aria-label="Select student 123456"></td>
+                                        <td>123456</td>
+                                        <td>
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-semibold">
+                                                    JD
+                                                </div>
+                                                <div>
+                                                    <div class="font-medium">John Doe</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>john.doe@williams.edu</td>
+                                        <td>2025</td>
+                                        <td>Computer Science</td>
+                                        <td>3.75</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <div class="flex gap-1">
+                                                <button class="action-button view-student" data-student="123456" title="View student details">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M8 1a7 7 0 100 14A7 7 0 008 1zM6 7.5a.5.5 0 01.5-.5h3a.5.5 0 010 1h-3a.5.5 0 01-.5-.5z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button edit-student" data-student="123456" title="Edit student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708L9.708 9H9a.5.5 0 0 1-.5-.5v-.708l5.854-5.854zm.5 1.5L7 7.293V7h-.293L12.646 1.646z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button text-destructive" data-student="123456" title="Delete student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><input type="checkbox" aria-label="Select student 123457"></td>
+                                        <td>123457</td>
+                                        <td>
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center text-sm font-semibold">
+                                                    JS
+                                                </div>
+                                                <div>
+                                                    <div class="font-medium">Jane Smith</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>jane.smith@williams.edu</td>
+                                        <td>2026</td>
+                                        <td>Mathematics</td>
+                                        <td>3.92</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>
+                                            <div class="flex gap-1">
+                                                <button class="action-button view-student" data-student="123457" title="View student details">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M8 1a7 7 0 100 14A7 7 0 008 1zM6 7.5a.5.5 0 01.5-.5h3a.5.5 0 010 1h-3a.5.5 0 01-.5-.5z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button edit-student" data-student="123457" title="Edit student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708L9.708 9H9a.5.5 0 0 1-.5-.5v-.708l5.854-5.854zm.5 1.5L7 7.293V7h-.293L12.646 1.646z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button text-destructive" data-student="123457" title="Delete student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><input type="checkbox" aria-label="Select student 123458"></td>
+                                        <td>123458</td>
+                                        <td>
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 bg-warning text-warning-foreground rounded-full flex items-center justify-center text-sm font-semibold">
+                                                    BJ
+                                                </div>
+                                                <div>
+                                                    <div class="font-medium">Bob Johnson</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>bob.johnson@williams.edu</td>
+                                        <td>2025</td>
+                                        <td>Economics</td>
+                                        <td>2.15</td>
+                                        <td><span class="badge badge-warning">Probation</span></td>
+                                        <td>
+                                            <div class="flex gap-1">
+                                                <button class="action-button view-student" data-student="123458" title="View student details">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M8 1a7 7 0 100 14A7 7 0 008 1zM6 7.5a.5.5 0 01.5-.5h3a.5.5 0 010 1h-3a.5.5 0 01-.5-.5z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button edit-student" data-student="123458" title="Edit student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708L9.708 9H9a.5.5 0 0 1-.5-.5v-.708l5.854-5.854zm.5 1.5L7 7.293V7h-.293L12.646 1.646z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button text-destructive" data-student="123458" title="Delete student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><input type="checkbox" aria-label="Select student 123459"></td>
+                                        <td>123459</td>
+                                        <td>
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 bg-info text-info-foreground rounded-full flex items-center justify-center text-sm font-semibold">
+                                                    AW
+                                                </div>
+                                                <div>
+                                                    <div class="font-medium">Alice Wilson</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>alice.wilson@williams.edu</td>
+                                        <td>2027</td>
+                                        <td>Psychology</td>
+                                        <td>3.45</td>
+                                        <td><span class="badge badge-info">Leave</span></td>
+                                        <td>
+                                            <div class="flex gap-1">
+                                                <button class="action-button view-student" data-student="123459" title="View student details">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M8 1a7 7 0 100 14A7 7 0 008 1zM6 7.5a.5.5 0 01.5-.5h3a.5.5 0 010 1h-3a.5.5 0 01-.5-.5z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button edit-student" data-student="123459" title="Edit student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708L9.708 9H9a.5.5 0 0 1-.5-.5v-.708l5.854-5.854zm.5 1.5L7 7.293V7h-.293L12.646 1.646z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button text-destructive" data-student="123459" title="Delete student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><input type="checkbox" aria-label="Select student 123460"></td>
+                                        <td>123460</td>
+                                        <td>
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 bg-success text-success-foreground rounded-full flex items-center justify-center text-sm font-semibold">
+                                                    MD
+                                                </div>
+                                                <div>
+                                                    <div class="font-medium">Michael Davis</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>michael.davis@williams.edu</td>
+                                        <td>2024</td>
+                                        <td>English</td>
+                                        <td>3.88</td>
+                                        <td><span class="badge badge-primary">Graduated</span></td>
+                                        <td>
+                                            <div class="flex gap-1">
+                                                <button class="action-button view-student" data-student="123460" title="View student details">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M8 1a7 7 0 100 14A7 7 0 008 1zM6 7.5a.5.5 0 01.5-.5h3a.5.5 0 010 1h-3a.5.5 0 01-.5-.5z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button edit-student" data-student="123460" title="Edit student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708L9.708 9H9a.5.5 0 0 1-.5-.5v-.708l5.854-5.854zm.5 1.5L7 7.293V7h-.293L12.646 1.646z"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="action-button text-destructive" data-student="123460" title="Delete student record">
+                                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="pagination-wrapper mt-6">
+                        <nav class="pagination" aria-label="Table pagination">
+                            <div class="pagination-item">
+                                <button class="page-link" disabled>
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                    Previous
+                                </button>
+                            </div>
+                            <div class="pagination-item">
+                                <button class="page-link active" aria-current="page">1</button>
+                            </div>
+                            <div class="pagination-item">
+                                <button class="page-link">2</button>
+                            </div>
+                            <div class="pagination-item">
+                                <button class="page-link">3</button>
+                            </div>
+                            <div class="pagination-item">
+                                <span class="page-link disabled">...</span>
+                            </div>
+                            <div class="pagination-item">
+                                <button class="page-link">25</button>
+                            </div>
+                            <div class="pagination-item">
+                                <button class="page-link">
+                                    Next
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="site-footer minimal">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-main">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <img src="https://connect.williams.edu/www/images/Branding/hEADER.png" alt="Williams College">
+                            </div>
+                            <p class="footer-copyright">&copy; 2024 Williams College. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Bulk Actions Modal -->
+    <div class="modal" id="bulk-actions-modal" aria-labelledby="bulk-actions-title" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="bulk-actions-title">Bulk Actions</h2>
+                    <button class="modal-close" aria-label="Close modal">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18 6L6 18M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Apply actions to <span id="selected-count">0</span> selected students:</p>
+                    <div class="space-y-3 mt-4">
+                        <button class="btn btn-outline w-full justify-start" id="bulk-export">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                            </svg>
+                            Export Selected
+                        </button>
+                        <button class="btn btn-outline w-full justify-start" id="bulk-email">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                <path d="M2 2A2 2 0 0 0 0 4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2V4zm13 2.383-4.708 2.825L15 11.105V6.383zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741zM1 11.105l4.708-2.897L1 6.383v4.722z"/>
+                            </svg>
+                            Send Email
+                        </button>
+                        <button class="btn btn-destructive w-full justify-start" id="bulk-delete">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                            Delete Selected
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-ghost modal-close">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="/dev/scripts/core/theme-manager.js"></script>
+    <script src="/dev/scripts/core/accessibility.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mark body as ready for fade-in
+            document.body.classList.add('ready');
+            
+            let currentSort = { column: null, direction: 'asc' };
+            let selectedStudents = new Set();
+            
+            // Table sorting functionality
+            document.querySelectorAll('.sortable').forEach(header => {
+                header.addEventListener('click', function() {
+                    const column = this.dataset.sort;
+                    const direction = (currentSort.column === column && currentSort.direction === 'asc') ? 'desc' : 'asc';
+                    
+                    // Update sort state
+                    currentSort = { column, direction };
+                    
+                    // Update visual indicators
+                    document.querySelectorAll('.sortable').forEach(h => h.removeAttribute('data-sort-direction'));
+                    this.setAttribute('data-sort-direction', direction);
+                    
+                    // Sort table (in real implementation, this would trigger an API call)
+                    window.a11y?.announce(`Table sorted by ${this.textContent.trim()} ${direction}ending`);
+                    
+                    console.log(`Sorting by ${column} ${direction}`);
+                });
+            });
+            
+            // Select all functionality
+            const selectAllCheckbox = document.getElementById('select-all');
+            const rowCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+            
+            selectAllCheckbox.addEventListener('change', function() {
+                const isChecked = this.checked;
+                rowCheckboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                    updateSelection(checkbox);
+                });
+                updateBulkActions();
+                
+                window.a11y?.announce(isChecked ? 'All students selected' : 'All students deselected');
+            });
+            
+            // Individual row selection
+            rowCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateSelection(this);
+                    updateSelectAllState();
+                    updateBulkActions();
+                });
+            });
+            
+            function updateSelection(checkbox) {
+                const studentId = checkbox.getAttribute('aria-label').match(/\d+/)[0];
+                if (checkbox.checked) {
+                    selectedStudents.add(studentId);
+                } else {
+                    selectedStudents.delete(studentId);
+                }
+            }
+            
+            function updateSelectAllState() {
+                const checkedCount = Array.from(rowCheckboxes).filter(cb => cb.checked).length;
+                selectAllCheckbox.checked = checkedCount === rowCheckboxes.length;
+                selectAllCheckbox.indeterminate = checkedCount > 0 && checkedCount < rowCheckboxes.length;
+            }
+            
+            function updateBulkActions() {
+                const selectedCount = selectedStudents.size;
+                document.getElementById('selected-count').textContent = selectedCount;
+                
+                // Show/hide bulk actions button (would be implemented)
+                if (selectedCount > 0) {
+                    console.log(`${selectedCount} students selected`);
+                }
+            }
+            
+            // Filter functionality
+            document.querySelectorAll('#class-filter, #major-filter, #status-filter').forEach(filter => {
+                filter.addEventListener('change', function() {
+                    applyFilters();
+                });
+            });
+            
+            document.getElementById('search-field').addEventListener('input', debounce(function() {
+                applyFilters();
+            }, 300));
+            
+            function applyFilters() {
+                const classFilter = document.getElementById('class-filter').value;
+                const majorFilter = document.getElementById('major-filter').value;
+                const statusFilter = document.getElementById('status-filter').value;
+                const searchTerm = document.getElementById('search-field').value;
+                
+                // In real implementation, this would make an API call
+                console.log('Applying filters:', { classFilter, majorFilter, statusFilter, searchTerm });
+                window.a11y?.announce('Filters applied, table updated');
+            }
+            
+            // Clear filters
+            document.getElementById('clear-filters').addEventListener('click', function() {
+                document.getElementById('class-filter').value = '';
+                document.getElementById('major-filter').value = '';
+                document.getElementById('status-filter').value = '';
+                document.getElementById('search-field').value = '';
+                applyFilters();
+                window.a11y?.announce('Filters cleared');
+            });
+            
+            // Action buttons
+            document.querySelectorAll('.view-student').forEach(button => {
+                button.addEventListener('click', function() {
+                    const studentId = this.dataset.student;
+                    window.location.href = `/students/${studentId}`;
+                });
+            });
+            
+            document.querySelectorAll('.edit-student').forEach(button => {
+                button.addEventListener('click', function() {
+                    const studentId = this.dataset.student;
+                    window.location.href = `/students/${studentId}/edit`;
+                });
+            });
+            
+            // Export functionality
+            document.getElementById('export-data').addEventListener('click', function() {
+                window.a11y?.announce('Exporting data...');
+                // Simulate export
+                setTimeout(() => {
+                    window.a11y?.announce('Data exported successfully');
+                }, 2000);
+            });
+            
+            // Add student
+            document.getElementById('add-student').addEventListener('click', function() {
+                window.location.href = '/students/new';
+            });
+            
+            // User menu toggle
+            const userToggle = document.querySelector('.header-user-toggle');
+            const userMenu = document.querySelector('.header-user');
+            
+            if (userToggle && userMenu) {
+                userToggle.addEventListener('click', function() {
+                    const isOpen = userMenu.classList.contains('open');
+                    userMenu.classList.toggle('open');
+                    userToggle.setAttribute('aria-expanded', !isOpen);
+                });
+                
+                // Close on outside click
+                document.addEventListener('click', function(e) {
+                    if (!userMenu.contains(e.target)) {
+                        userMenu.classList.remove('open');
+                        userToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+            
+            // Pagination
+            document.querySelectorAll('.page-link:not(.disabled)').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (!this.disabled) {
+                        const page = this.textContent.trim();
+                        console.log(`Navigate to page: ${page}`);
+                        window.a11y?.announce(`Navigating to page ${page}`);
+                    }
+                });
+            });
+            
+            // Utility function for debouncing
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+            
+            // Announce page load
+            if (window.a11y) {
+                window.a11y.announce('Student records table loaded');
+            }
+            
+            console.log('List template loaded successfully');
+        });
+    </script>
+</body>
+</html>

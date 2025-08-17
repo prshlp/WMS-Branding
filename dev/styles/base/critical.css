@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Critical CSS - Williams College Design System
+   Inline this in <head> for optimal performance
+   ========================================================================== */
+
+/* Prevent FOUC and layout shift */
+:root {
+  --williams-purple: #500082;
+  --williams-gold: #ffbe0a;
+  --background: #ffffff;
+  --foreground: #18181b;
+}
+
+[data-theme="dark"] {
+  --background: #09090b;
+  --foreground: #fafafa;
+}
+
+/* Prevent theme flash */
+html {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Smooth theme transitions but not on initial load */
+html.theme-transitioning * {
+  transition: background-color 200ms ease, color 200ms ease !important;
+}
+
+/* Prevent layout shift for main containers */
+body {
+  margin: 0;
+  min-height: 100vh;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+body.ready {
+  opacity: 1;
+}
+
+/* Critical layout structure */
+.site-header {
+  height: 66px;
+  background-color: var(--williams-purple);
+}
+
+.site-main {
+  flex: 1;
+  min-height: calc(100vh - 66px);
+}
+
+/* Prevent invisible text during webfont load */
+.fonts-loading {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Above-the-fold skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Hide content until styles load */
+.no-css .requires-css {
+  display: none;
+}
+
+/* Critical media queries */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,462 @@
+/* ==========================================================================
+   CRM Override Styles - Williams College Design System
+   Advanced override system using CSS Cascade Layers
+   ========================================================================== */
+
+/* Define cascade layers for predictable specificity */
+@layer reset, base, components, vendors, overrides, crm-fixes;
+
+/* =================================
+   CRM Content Isolation
+   ================================= */
+
+@layer crm-fixes {
+  /* Create isolated styling context for CRM content */
+  [data-crm-content] {
+    /* Isolate to prevent global style contamination */
+    contain: layout style;
+    
+    /* Reset any unwanted margins/padding */
+    > * {
+      margin-top: 0;
+    }
+  }
+  
+  /* Wrapper for better control */
+  .crm-content-inner {
+    /* Apply consistent spacing */
+    padding: var(--space-4);
+    
+    /* Ensure proper text rendering */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* =================================
+     Critical CRM Element Fixes
+     ================================= */
+  
+  /* Fix CRM column layout issues */
+  [data-crm-content] div[data-col] {
+    width: inherit !important;
+    max-width: inherit !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+  
+  /* Reset CRM global list styles */
+  [data-crm-content] #global ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* =================================
+     CRM Button System Integration
+     ================================= */
+  
+  /* Apply design system to CRM buttons */
+  [data-crm-content] :where(button, input[type="button"], input[type="submit"]) {
+    /* Reset all CRM button styles */
+    all: revert-layer;
+    
+    /* Apply our design system */
+    @apply btn btn-primary;
+    
+    /* Ensure consistent styling */
+    font-family: var(--font-body) !important;
+    font-size: var(--text-sm) !important;
+    font-weight: var(--font-medium) !important;
+    
+    /* Override any inline styles */
+    background-color: var(--primary) !important;
+    color: var(--primary-foreground) !important;
+    border: 1px solid var(--primary) !important;
+    border-radius: var(--radius-md) !important;
+    
+    /* Ensure proper spacing */
+    padding: var(--space-2) var(--space-4) !important;
+    height: 2.5rem !important;
+    
+    /* Interaction states */
+    cursor: pointer !important;
+    transition: var(--transition-colors) !important;
+  }
+  
+  /* CRM button hover states */
+  [data-crm-content] :where(button, input[type="button"], input[type="submit"]):hover:not(:disabled) {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: var(--shadow-md) !important;
+  }
+  
+  /* CRM button active states */
+  [data-crm-content] :where(button, input[type="button"], input[type="submit"]):active:not(:disabled) {
+    background-color: var(--primary-active) !important;
+    border-color: var(--primary-active) !important;
+    transform: translateY(0) !important;
+  }
+  
+  /* CRM default/primary buttons */
+  [data-crm-content] :where(.default, .primary, ul.action a.default) {
+    background-color: var(--primary) !important;
+    color: var(--primary-foreground) !important;
+    border-color: var(--primary) !important;
+  }
+  
+  /* CRM default button hover */
+  [data-crm-content] :where(.default, .primary, ul.action a.default):hover:not(:disabled) {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+  }
+  
+  /* CRM action links styled as buttons */
+  [data-crm-content] ul.action a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    
+    /* Apply button styles */
+    @apply btn btn-outline;
+    
+    /* Override any CRM styles */
+    background-color: transparent !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-md) !important;
+    padding: var(--space-2) var(--space-4) !important;
+    height: 2.5rem !important;
+    font-size: var(--text-sm) !important;
+    font-weight: var(--font-medium) !important;
+  }
+  
+  /* =================================
+     CRM Form Integration
+     ================================= */
+  
+  /* CRM form inputs */
+  [data-crm-content] :where(input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]), textarea, select) {
+    /* Reset and apply design system */
+    all: revert-layer;
+    @apply form-input;
+    
+    /* Consistent styling */
+    width: 100% !important;
+    font-family: var(--font-body) !important;
+    font-size: var(--text-sm) !important;
+    
+    /* Override CRM styles */
+    background-color: var(--input-background) !important;
+    border: 1px solid var(--input-border) !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--foreground) !important;
+    padding: var(--space-2) var(--space-3) !important;
+    height: 2.5rem !important;
+    
+    /* Transitions */
+    transition: var(--transition-colors), box-shadow 150ms ease !important;
+  }
+  
+  /* CRM textarea specific */
+  [data-crm-content] textarea {
+    height: auto !important;
+    min-height: 5rem !important;
+    resize: vertical !important;
+  }
+  
+  /* CRM select specific */
+  [data-crm-content] select {
+    padding-right: var(--space-10) !important;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23500082' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right var(--space-3) center !important;
+    background-size: 1rem !important;
+    appearance: none !important;
+  }
+  
+  /* CRM form focus states */
+  [data-crm-content] :where(input, textarea, select):focus {
+    outline: none !important;
+    border-color: var(--input-focus) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-focus) 20%, transparent) !important;
+  }
+  
+  /* CRM checkbox and radio */
+  [data-crm-content] :where(input[type="checkbox"], input[type="radio"]) {
+    @apply form-check-input;
+    
+    /* Reset and apply consistent styling */
+    appearance: none !important;
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    margin-right: var(--space-2) !important;
+    background-color: var(--input-background) !important;
+    border: 1px solid var(--input-border) !important;
+    cursor: pointer !important;
+  }
+  
+  /* CRM checkbox styling */
+  [data-crm-content] input[type="checkbox"] {
+    border-radius: var(--radius-sm) !important;
+  }
+  
+  /* CRM radio styling */
+  [data-crm-content] input[type="radio"] {
+    border-radius: var(--radius-full) !important;
+  }
+  
+  /* CRM checkbox/radio checked states */
+  [data-crm-content] :where(input[type="checkbox"], input[type="radio"]):checked {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+  }
+  
+  /* CRM checkbox check mark */
+  [data-crm-content] input[type="checkbox"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+  }
+  
+  /* CRM radio dot */
+  [data-crm-content] input[type="radio"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='6' cy='6' r='3' fill='white'/%3E%3C/svg%3E") !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+  }
+  
+  /* CRM labels */
+  [data-crm-content] :where(label, .form_label) {
+    @apply form-label;
+    
+    /* Consistent styling */
+    display: block !important;
+    margin-bottom: var(--space-2) !important;
+    font-size: var(--text-sm) !important;
+    font-weight: var(--font-medium) !important;
+    color: var(--foreground) !important;
+  }
+  
+  /* CRM required field indicators */
+  [data-crm-content] .form_question[data-required="1"] .form_label::after {
+    content: "*" !important;
+    margin-left: var(--space-1) !important;
+    color: var(--destructive) !important;
+  }
+  
+  /* =================================
+     CRM Navigation Integration
+     ================================= */
+  
+  /* CRM navigation links */
+  [data-crm-content] :where(.nav-link, .navigation a) {
+    color: var(--primary) !important;
+    text-decoration: none !important;
+    transition: var(--transition-colors) !important;
+    
+    /* Consistent hover state */
+    &:hover,
+    &:focus {
+      color: var(--primary-hover) !important;
+      text-decoration: underline !important;
+    }
+  }
+  
+  /* CRM active navigation items */
+  [data-crm-content] :where(.nav-link.active, .navigation a.active) {
+    color: var(--primary-active) !important;
+    font-weight: var(--font-semibold) !important;
+  }
+  
+  /* =================================
+     CRM List Integration
+     ================================= */
+  
+  /* CRM list group items */
+  [data-crm-content] .list-group-item {
+    background-color: var(--card) !important;
+    border-color: var(--border) !important;
+    color: var(--card-foreground) !important;
+    
+    /* Consistent hover state */
+    &:hover {
+      background-color: var(--muted) !important;
+    }
+  }
+  
+  /* CRM active list items */
+  [data-crm-content] .list-group-item.active {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary-foreground) !important;
+  }
+  
+  /* =================================
+     CRM Pagination Integration
+     ================================= */
+  
+  /* CRM pagination links */
+  [data-crm-content] :where(.page-link, .pagination a) {
+    background-color: var(--card) !important;
+    border-color: var(--border) !important;
+    color: var(--primary) !important;
+    
+    /* Consistent hover state */
+    &:hover {
+      background-color: var(--muted) !important;
+      border-color: var(--border) !important;
+      color: var(--primary-hover) !important;
+    }
+  }
+  
+  /* CRM active pagination */
+  [data-crm-content] :where(.active > .page-link, .page-link.active) {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary-foreground) !important;
+  }
+  
+  /* =================================
+     CRM Table Integration
+     ================================= */
+  
+  /* CRM tables */
+  [data-crm-content] table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    
+    /* Consistent styling */
+    background-color: var(--card) !important;
+    color: var(--card-foreground) !important;
+  }
+  
+  /* CRM table headers */
+  [data-crm-content] :where(th, .table-header) {
+    background-color: var(--muted) !important;
+    color: var(--foreground) !important;
+    font-weight: var(--font-semibold) !important;
+    padding: var(--space-3) !important;
+    border-bottom: 1px solid var(--border) !important;
+    text-align: left !important;
+  }
+  
+  /* CRM table cells */
+  [data-crm-content] td {
+    padding: var(--space-3) !important;
+    border-bottom: 1px solid var(--border) !important;
+    vertical-align: top !important;
+  }
+  
+  /* CRM striped tables */
+  [data-crm-content] tbody tr:nth-child(even) {
+    background-color: color-mix(in srgb, var(--muted) 50%, transparent) !important;
+  }
+  
+  /* =================================
+     CRM Alert/Message Integration
+     ================================= */
+  
+  /* CRM alert messages */
+  [data-crm-content] :where(.alert, .message, .notice) {
+    padding: var(--space-4) !important;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid var(--border) !important;
+    margin-bottom: var(--space-4) !important;
+  }
+  
+  /* CRM success messages */
+  [data-crm-content] :where(.alert-success, .message-success, .success) {
+    background-color: color-mix(in srgb, var(--success) 10%, var(--card)) !important;
+    border-color: var(--success) !important;
+    color: var(--success) !important;
+  }
+  
+  /* CRM error messages */
+  [data-crm-content] :where(.alert-error, .alert-danger, .message-error, .error) {
+    background-color: color-mix(in srgb, var(--destructive) 10%, var(--card)) !important;
+    border-color: var(--destructive) !important;
+    color: var(--destructive) !important;
+  }
+  
+  /* CRM warning messages */
+  [data-crm-content] :where(.alert-warning, .message-warning, .warning) {
+    background-color: color-mix(in srgb, var(--warning) 10%, var(--card)) !important;
+    border-color: var(--warning) !important;
+    color: var(--warning) !important;
+  }
+  
+  /* CRM info messages */
+  [data-crm-content] :where(.alert-info, .message-info, .info) {
+    background-color: color-mix(in srgb, var(--info) 10%, var(--card)) !important;
+    border-color: var(--info) !important;
+    color: var(--info) !important;
+  }
+  
+  /* =================================
+     Legacy CRM Compatibility
+     ================================= */
+  
+  /* Handle legacy class names */
+  [data-crm-content] .no-touch ul.action a:active,
+  [data-crm-content] .no-touch button:active,
+  [data-crm-content] .no-touch button.focus,
+  [data-crm-content] .no-touch input[type=button]:active,
+  [data-crm-content] .no-touch input[type=submit]:active,
+  [data-crm-content] .no-touch ul.action a.default:active,
+  [data-crm-content] .no-touch button.default:active,
+  [data-crm-content] .no-touch input[type=button].default:active,
+  [data-crm-content] .no-touch input[type=submit].default:active {
+    background-color: var(--primary-active) !important;
+    color: var(--primary-foreground) !important;
+    border-color: var(--primary-active) !important;
+  }
+  
+  /* Handle margin/padding issues in CRM buttons */
+  [data-crm-content] .btn-sm i {
+    margin-right: 0 !important;
+  }
+  
+  [data-crm-content] .btn i {
+    margin: 0 !important;
+  }
+  
+  /* =================================
+     CRM Dark Mode Compatibility
+     ================================= */
+  
+  /* Ensure CRM content adapts to dark mode */
+  [data-theme="dark"] [data-crm-content] {
+    /* Force dark mode colors on CRM elements that might resist */
+    color-scheme: dark !important;
+  }
+  
+  /* Dark mode text fixes */
+  [data-theme="dark"] [data-crm-content] * {
+    /* Ensure text is visible in dark mode */
+    &:not(button):not(input):not(select):not(textarea) {
+      color: var(--foreground) !important;
+    }
+  }
+  
+  /* =================================
+     Print Styles for CRM Content
+     ================================= */
+  
+  @media print {
+    [data-crm-content] * {
+      background: transparent !important;
+      color: #000 !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    
+    [data-crm-content] button,
+    [data-crm-content] input[type="button"],
+    [data-crm-content] input[type="submit"] {
+      display: none !important;
+    }
+  }
+}

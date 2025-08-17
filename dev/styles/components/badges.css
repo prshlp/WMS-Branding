@@ -1,0 +1,616 @@
+/* ==========================================================================
+   Badge/Status Components - Williams College Design System
+   Status indicators, badges, and labels with Williams branding
+   ========================================================================== */
+
+/* =================================
+   Base Badge Component
+   ================================= */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: var(--transition-colors);
+}
+
+/* Badge icon */
+.badge-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* Badge dot */
+.badge-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* =================================
+   Badge Variants
+   ================================= */
+
+/* Default badge */
+.badge-default {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+/* Primary badge */
+.badge-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Secondary badge */
+.badge-secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+/* Success badge */
+.badge-success {
+  background-color: var(--success);
+  color: var(--success-foreground);
+}
+
+/* Warning badge */
+.badge-warning {
+  background-color: var(--warning);
+  color: var(--warning-foreground);
+}
+
+/* Error/Destructive badge */
+.badge-error,
+.badge-destructive {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+}
+
+/* Info badge */
+.badge-info {
+  background-color: var(--info);
+  color: var(--info-foreground);
+}
+
+/* Williams specific badges */
+.badge-williams {
+  background-color: var(--williams-purple);
+  color: white;
+}
+
+.badge-gold {
+  background-color: var(--williams-gold);
+  color: var(--gray-900);
+}
+
+/* =================================
+   Badge Styles
+   ================================= */
+
+/* Outline badges */
+.badge-outline {
+  background-color: transparent;
+  border-width: 1px;
+}
+
+.badge-outline.badge-default {
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+.badge-outline.badge-primary {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.badge-outline.badge-secondary {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.badge-outline.badge-success {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.badge-outline.badge-warning {
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.badge-outline.badge-error,
+.badge-outline.badge-destructive {
+  border-color: var(--destructive);
+  color: var(--destructive);
+}
+
+.badge-outline.badge-info {
+  border-color: var(--info);
+  color: var(--info);
+}
+
+.badge-outline.badge-williams {
+  border-color: var(--williams-purple);
+  color: var(--williams-purple);
+}
+
+.badge-outline.badge-gold {
+  border-color: var(--williams-gold);
+  color: var(--williams-gold);
+}
+
+/* Soft badges */
+.badge-soft {
+  border-width: 0;
+}
+
+.badge-soft.badge-primary {
+  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  color: var(--primary);
+}
+
+.badge-soft.badge-secondary {
+  background-color: color-mix(in srgb, var(--secondary) 10%, transparent);
+  color: var(--secondary);
+}
+
+.badge-soft.badge-success {
+  background-color: color-mix(in srgb, var(--success) 10%, transparent);
+  color: var(--success);
+}
+
+.badge-soft.badge-warning {
+  background-color: color-mix(in srgb, var(--warning) 10%, transparent);
+  color: var(--warning);
+}
+
+.badge-soft.badge-error,
+.badge-soft.badge-destructive {
+  background-color: color-mix(in srgb, var(--destructive) 10%, transparent);
+  color: var(--destructive);
+}
+
+.badge-soft.badge-info {
+  background-color: color-mix(in srgb, var(--info) 10%, transparent);
+  color: var(--info);
+}
+
+.badge-soft.badge-williams {
+  background-color: color-mix(in srgb, var(--williams-purple) 10%, transparent);
+  color: var(--williams-purple);
+}
+
+.badge-soft.badge-gold {
+  background-color: color-mix(in srgb, var(--williams-gold) 10%, transparent);
+  color: var(--williams-gold);
+}
+
+/* =================================
+   Badge Sizes
+   ================================= */
+
+/* Small badge */
+.badge-sm {
+  padding: var(--space-0-5) var(--space-1);
+  font-size: 0.625rem;
+}
+
+.badge-sm .badge-icon {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+.badge-sm .badge-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+}
+
+/* Medium badge (default) */
+.badge-md {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+}
+
+/* Large badge */
+.badge-lg {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.badge-lg .badge-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.badge-lg .badge-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+}
+
+/* =================================
+   Badge Shapes
+   ================================= */
+
+/* Rounded badge */
+.badge-rounded {
+  border-radius: var(--radius-full);
+}
+
+/* Square badge */
+.badge-square {
+  border-radius: var(--radius-sm);
+}
+
+/* Pill badge (default rounded) */
+.badge-pill {
+  border-radius: var(--radius-full);
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+}
+
+/* =================================
+   Status Indicators
+   ================================= */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.status-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+/* Status variants */
+.status-online .status-indicator {
+  background-color: var(--success);
+}
+
+.status-offline .status-indicator {
+  background-color: var(--foreground-muted);
+}
+
+.status-busy .status-indicator {
+  background-color: var(--destructive);
+}
+
+.status-away .status-indicator {
+  background-color: var(--warning);
+}
+
+.status-idle .status-indicator {
+  background-color: var(--info);
+}
+
+/* Pulsing status indicator */
+.status-indicator-pulse {
+  animation: pulse-status 2s infinite;
+}
+
+@keyframes pulse-status {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+/* =================================
+   Notification Badge
+   ================================= */
+
+.notification-badge {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-count {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.625rem;
+  font-weight: var(--font-bold);
+  line-height: 1;
+  color: white;
+  background-color: var(--destructive);
+  border: 2px solid var(--background);
+  border-radius: var(--radius-full);
+  z-index: 1;
+}
+
+/* Hide count when zero */
+.notification-count[data-count="0"] {
+  display: none;
+}
+
+/* Max count indicator */
+.notification-count[data-count-max="true"]::after {
+  content: "+";
+}
+
+/* =================================
+   Progress Badge
+   ================================= */
+
+.progress-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-badge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--progress, 0%);
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: width 300ms ease;
+}
+
+/* =================================
+   Interactive Badges
+   ================================= */
+
+/* Clickable badge */
+.badge-clickable {
+  cursor: pointer;
+  transition: var(--transition-colors), var(--transition-transform);
+}
+
+.badge-clickable:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.badge-clickable:active {
+  transform: translateY(0);
+}
+
+.badge-clickable:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Dismissible badge */
+.badge-dismissible {
+  padding-right: var(--space-6);
+  position: relative;
+}
+
+.badge-dismiss {
+  position: absolute;
+  top: 50%;
+  right: var(--space-1);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  opacity: 0.7;
+  transition: var(--transition-colors);
+}
+
+.badge-dismiss:hover,
+.badge-dismiss:focus {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.badge-dismiss::before {
+  content: "×";
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+/* =================================
+   Badge Groups
+   ================================= */
+
+.badge-group {
+  display: inline-flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.badge-stack {
+  display: inline-flex;
+  gap: calc(-1 * var(--space-1));
+}
+
+.badge-stack .badge {
+  border: 2px solid var(--background);
+  z-index: 1;
+}
+
+.badge-stack .badge:first-child {
+  z-index: 3;
+}
+
+.badge-stack .badge:nth-child(2) {
+  z-index: 2;
+}
+
+/* =================================
+   Tag Components
+   ================================= */
+
+.tag {
+  @extend .badge;
+  @extend .badge-soft;
+  @extend .badge-default;
+  padding: var(--space-1) var(--space-2);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-sm);
+}
+
+.tag-input {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  padding: var(--space-2);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  background-color: var(--input-background);
+  min-height: 2.5rem;
+}
+
+.tag-input:focus-within {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-focus) 20%, transparent);
+}
+
+.tag-input-field {
+  flex: 1;
+  min-width: 8rem;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--text-sm);
+  color: var(--foreground);
+}
+
+/* =================================
+   CRM Badge Integration
+   ================================= */
+
+/* Override CRM badge/label styles */
+[data-crm-content] .badge,
+[data-crm-content] .label,
+[data-crm-content] .tag,
+[data-crm-content] .chip {
+  @extend .badge;
+  @extend .badge-default;
+}
+
+[data-crm-content] .badge-success,
+[data-crm-content] .label-success,
+[data-crm-content] .success-badge {
+  @extend .badge-success;
+}
+
+[data-crm-content] .badge-error,
+[data-crm-content] .badge-danger,
+[data-crm-content] .label-error,
+[data-crm-content] .error-badge {
+  @extend .badge-error;
+}
+
+[data-crm-content] .badge-warning,
+[data-crm-content] .label-warning,
+[data-crm-content] .warning-badge {
+  @extend .badge-warning;
+}
+
+[data-crm-content] .badge-info,
+[data-crm-content] .label-info,
+[data-crm-content] .info-badge {
+  @extend .badge-info;
+}
+
+[data-crm-content] .badge-primary,
+[data-crm-content] .label-primary,
+[data-crm-content] .primary-badge {
+  @extend .badge-primary;
+}
+
+/* =================================
+   Responsive Badges
+   ================================= */
+
+@media (max-width: 768px) {
+  .badge {
+    font-size: 0.625rem;
+    padding: var(--space-0-5) var(--space-1);
+  }
+  
+  .badge-lg {
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+  }
+  
+  .badge-group {
+    gap: var(--space-0-5);
+  }
+  
+  .notification-count {
+    min-width: 1rem;
+    height: 1rem;
+    font-size: 0.5rem;
+  }
+}
+
+/* =================================
+   Accessibility Enhancements
+   ================================= */
+
+/* Ensure badges are accessible */
+.badge[role="status"],
+.status[role="status"] {
+  /* Will be announced to screen readers */
+}
+
+/* Focus indicators for interactive badges */
+.badge-clickable:focus-visible,
+.badge-dismiss:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .badge,
+  .status-indicator {
+    border: 1px solid currentColor;
+  }
+  
+  .badge-outline {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .status-indicator-pulse,
+  .badge-clickable {
+    animation: none;
+    transition: none;
+  }
+}

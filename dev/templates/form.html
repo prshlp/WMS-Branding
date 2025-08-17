@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#500082">
+    <title>Course Registration - Williams College</title>
+    
+    <!-- Performance optimized loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    
+    <!-- Critical CSS inlined for optimal performance -->
+    <style id="critical-css">
+        :root {
+            --williams-purple: #500082;
+            --williams-gold: #ffbe0a;
+            --background: #ffffff;
+            --foreground: #18181b;
+        }
+        [data-theme="dark"] {
+            --background: #09090b;
+            --foreground: #fafafa;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --background: #09090b;
+                --foreground: #fafafa;
+            }
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            opacity: 0;
+            transition: opacity 300ms ease;
+        }
+        body.ready { opacity: 1; }
+        .form-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 0.5rem;
+            height: 1rem;
+            margin-bottom: 1rem;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+    
+    <!-- Design System Styles -->
+    <link href="/dev/styles/main.css" rel="stylesheet">
+    
+    <!-- Theme detection script -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('williams-theme') || 'auto';
+            if (theme === 'auto') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Page Layout -->
+    <div class="layout-form">
+        <!-- Header -->
+        <header class="form-header site-header compact">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-brand">
+                        <a href="/" class="header-logo">
+                            <img src="https://connect.williams.edu/www/images/Branding/hEADER.png" 
+                                 alt="Williams College" 
+                                 width="200" 
+                                 height="32">
+                        </a>
+                        <h1 class="header-page-title">Course Registration</h1>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <!-- Theme Toggle -->
+                        <button type="button" class="header-theme-toggle theme-toggle" data-theme-toggle="cycle" aria-label="Toggle theme">
+                            <svg data-theme-icon="light" class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 2V4M10 16V18M4 10H2M6.31412 6.31412L4.8999 4.8999M13.6859 6.31412L15.1001 4.8999M6.31412 13.69L4.8999 15.1001M13.6859 13.69L15.1001 15.1001M18 10H16M14 10C14 7.79086 12.2091 6 10 6C7.79086 6 6 7.79086 6 10C6 12.2091 7.79086 14 10 14C12.2091 14 14 12.2091 14 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg data-theme-icon="dark" class="theme-icon theme-icon--dark" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" fill="currentColor"/>
+                            </svg>
+                            <svg data-theme-icon="auto" class="theme-icon theme-icon--auto" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 2C10 1.44772 9.55228 1 9 1C8.44772 1 8 1.44772 8 2V3C8 3.55228 8.44772 4 9 4C9.55228 4 10 3.55228 10 3V2Z" fill="currentColor"/>
+                                <path d="M14 10C14 12.2091 12.2091 14 10 14V10H14Z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- User Menu -->
+                        <div class="header-user">
+                            <button class="header-user-toggle" aria-expanded="false">
+                                <div class="header-user-avatar">JD</div>
+                                <span class="header-user-name">John Doe</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="m4 6 4 4 4-4"/>
+                                </svg>
+                            </button>
+                            <div class="header-user-menu">
+                                <a href="/dashboard">Dashboard</a>
+                                <a href="/profile">View Profile</a>
+                                <a href="/settings">Account Settings</a>
+                                <hr style="border: none; border-top: 1px solid var(--border); margin: 0.5rem 0;">
+                                <a href="/logout">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="form-main" id="main-content" data-crm-content="true">
+            <!-- Breadcrumbs -->
+            <div class="container">
+                <nav class="breadcrumb mb-6" aria-label="Breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="/">Home</a>
+                    </div>
+                    <div class="breadcrumb-item">
+                        <a href="/dashboard">Dashboard</a>
+                    </div>
+                    <div class="breadcrumb-item active" aria-current="page">
+                        Course Registration
+                    </div>
+                </nav>
+            </div>
+            
+            <!-- Form Header -->
+            <section class="form-hero bg-muted py-8">
+                <div class="container">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-4xl font-bold mb-2">Course Registration</h1>
+                            <p class="text-lg text-muted">Spring 2025 Registration Period</p>
+                            <div class="flex items-center gap-4 mt-4">
+                                <div class="badge badge-success">Registration Open</div>
+                                <div class="text-sm text-muted">Deadline: December 15, 2024</div>
+                            </div>
+                        </div>
+                        <div class="card p-4 bg-card">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-primary">14</div>
+                                <div class="text-sm text-muted">Credits Selected</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Form Content -->
+            <div class="container py-8">
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <!-- Main Form -->
+                    <div class="lg:col-span-3">
+                        <!-- Registration Form -->
+                        <form class="registration-form" id="registration-form" novalidate>
+                            <!-- Student Information -->
+                            <div class="card mb-6">
+                                <div class="card-header">
+                                    <h2 class="card-title">Student Information</h2>
+                                    <p class="card-description">Verify your information before proceeding</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="form_question">
+                                            <label class="form_label" for="student-id">Student ID</label>
+                                            <input type="text" id="student-id" value="123456" readonly class="form-control-readonly">
+                                        </div>
+                                        <div class="form_question">
+                                            <label class="form_label" for="student-name">Full Name</label>
+                                            <input type="text" id="student-name" value="John Doe" readonly class="form-control-readonly">
+                                        </div>
+                                        <div class="form_question">
+                                            <label class="form_label" for="class-year">Class Year</label>
+                                            <input type="text" id="class-year" value="2026" readonly class="form-control-readonly">
+                                        </div>
+                                        <div class="form_question">
+                                            <label class="form_label" for="major">Major</label>
+                                            <input type="text" id="major" value="Computer Science" readonly class="form-control-readonly">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Course Search -->
+                            <div class="card mb-6">
+                                <div class="card-header">
+                                    <h2 class="card-title">Find Courses</h2>
+                                    <p class="card-description">Search and filter available courses</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                        <div class="form_question">
+                                            <label class="form_label" for="search-term">Search Term</label>
+                                            <input type="search" id="search-term" placeholder="Course name, number, or professor">
+                                        </div>
+                                        <div class="form_question">
+                                            <label class="form_label" for="department">Department</label>
+                                            <select id="department">
+                                                <option value="">All Departments</option>
+                                                <option value="CSCI">Computer Science</option>
+                                                <option value="MATH">Mathematics</option>
+                                                <option value="PHIL">Philosophy</option>
+                                                <option value="ENGL">English</option>
+                                                <option value="HIST">History</option>
+                                                <option value="PSYC">Psychology</option>
+                                            </select>
+                                        </div>
+                                        <div class="form_question">
+                                            <label class="form_label" for="time-filter">Time Preference</label>
+                                            <select id="time-filter">
+                                                <option value="">Any Time</option>
+                                                <option value="morning">Morning (8AM-12PM)</option>
+                                                <option value="afternoon">Afternoon (12PM-5PM)</option>
+                                                <option value="evening">Evening (5PM-9PM)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <button type="button" class="btn btn-primary" id="search-courses">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                            <path d="m11.742 10.344 6.814 6.814a1 1 0 0 1-1.414 1.414l-6.814-6.814a6 6 0 1 1 1.414-1.414zM5 10a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
+                                        </svg>
+                                        Search Courses
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Available Courses -->
+                            <div class="card mb-6">
+                                <div class="card-header">
+                                    <h2 class="card-title">Available Courses</h2>
+                                    <p class="card-description">Select courses to add to your schedule</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="course-list">
+                                        <div class="course-item" data-course-id="CSCI334">
+                                            <div class="flex items-start justify-between p-4 border border-border rounded-lg mb-4">
+                                                <div class="flex-1">
+                                                    <div class="flex items-center gap-2 mb-2">
+                                                        <h3 class="font-semibold">CSCI 334 - Advanced Algorithms</h3>
+                                                        <span class="badge badge-primary">4 Credits</span>
+                                                        <span class="badge badge-outline badge-success">Open</span>
+                                                    </div>
+                                                    <p class="text-sm text-muted mb-2">Professor Johnson • MWF 10:00-11:00 AM • Room: TCL 312</p>
+                                                    <p class="text-sm">Advanced study of algorithms including graph algorithms, dynamic programming, and complexity analysis.</p>
+                                                    <div class="flex items-center gap-4 mt-3 text-xs text-muted">
+                                                        <span>Enrolled: 18/25</span>
+                                                        <span>Prerequisites: CSCI 256</span>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col gap-2 ml-4">
+                                                    <button type="button" class="btn btn-outline btn-sm add-course" data-course="CSCI334">
+                                                        Add Course
+                                                    </button>
+                                                    <button type="button" class="btn btn-ghost btn-sm" data-course-details="CSCI334">
+                                                        View Details
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="course-item" data-course-id="MATH350">
+                                            <div class="flex items-start justify-between p-4 border border-border rounded-lg mb-4">
+                                                <div class="flex-1">
+                                                    <div class="flex items-center gap-2 mb-2">
+                                                        <h3 class="font-semibold">MATH 350 - Real Analysis</h3>
+                                                        <span class="badge badge-primary">4 Credits</span>
+                                                        <span class="badge badge-outline badge-warning">Waitlist</span>
+                                                    </div>
+                                                    <p class="text-sm text-muted mb-2">Professor Smith • TTH 2:00-3:30 PM • Room: BRUG 001</p>
+                                                    <p class="text-sm">Rigorous treatment of real numbers, sequences, series, continuity, and differentiation.</p>
+                                                    <div class="flex items-center gap-4 mt-3 text-xs text-muted">
+                                                        <span>Enrolled: 20/20 (Waitlist: 3)</span>
+                                                        <span>Prerequisites: MATH 250</span>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col gap-2 ml-4">
+                                                    <button type="button" class="btn btn-outline btn-sm add-course" data-course="MATH350">
+                                                        Join Waitlist
+                                                    </button>
+                                                    <button type="button" class="btn btn-ghost btn-sm" data-course-details="MATH350">
+                                                        View Details
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="course-item" data-course-id="PHIL201">
+                                            <div class="flex items-start justify-between p-4 border border-border rounded-lg mb-4">
+                                                <div class="flex-1">
+                                                    <div class="flex items-center gap-2 mb-2">
+                                                        <h3 class="font-semibold">PHIL 201 - Logic and Reasoning</h3>
+                                                        <span class="badge badge-primary">3 Credits</span>
+                                                        <span class="badge badge-outline badge-success">Open</span>
+                                                    </div>
+                                                    <p class="text-sm text-muted mb-2">Professor Davis • MWF 2:00-3:00 PM • Room: HOLT 105</p>
+                                                    <p class="text-sm">Introduction to formal logic, critical thinking, and philosophical argumentation.</p>
+                                                    <div class="flex items-center gap-4 mt-3 text-xs text-muted">
+                                                        <span>Enrolled: 12/25</span>
+                                                        <span>Prerequisites: None</span>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col gap-2 ml-4">
+                                                    <button type="button" class="btn btn-outline btn-sm add-course" data-course="PHIL201">
+                                                        Add Course
+                                                    </button>
+                                                    <button type="button" class="btn btn-ghost btn-sm" data-course-details="PHIL201">
+                                                        View Details
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Selected Courses -->
+                            <div class="card mb-6">
+                                <div class="card-header">
+                                    <h2 class="card-title">Selected Courses</h2>
+                                    <p class="card-description">Review your course selections</p>
+                                </div>
+                                <div class="card-body">
+                                    <div id="selected-courses" class="space-y-4">
+                                        <div class="alert alert-info">
+                                            <div class="alert-content">
+                                                <div class="alert-description">Add courses from the list above to see them here.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Additional Information -->
+                            <div class="card mb-6">
+                                <div class="card-header">
+                                    <h2 class="card-title">Additional Information</h2>
+                                    <p class="card-description">Optional registration details</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="form_question">
+                                            <label class="form_label" for="registration-priority">Registration Priority</label>
+                                            <select id="registration-priority">
+                                                <option value="standard">Standard</option>
+                                                <option value="athlete">Student Athlete</option>
+                                                <option value="disability">Disability Services</option>
+                                                <option value="senior">Senior Priority</option>
+                                            </select>
+                                        </div>
+                                        <div class="form_question">
+                                            <label class="form_label" for="special-requests">Special Requests</label>
+                                            <textarea id="special-requests" rows="3" placeholder="Any special accommodation requests..."></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form_question mt-4">
+                                        <input type="checkbox" id="overload-consent">
+                                        <label for="overload-consent">I understand that taking more than 16 credits requires approval from my advisor</label>
+                                    </div>
+                                    
+                                    <div class="form_question">
+                                        <input type="checkbox" id="terms-agreement" required>
+                                        <label for="terms-agreement">I agree to the <a href="/terms" class="underline">registration terms and conditions</a></label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Form Actions -->
+                            <div class="flex flex-col sm:flex-row gap-4 justify-end">
+                                <button type="button" class="btn btn-outline">Save as Draft</button>
+                                <button type="button" class="btn btn-ghost">Preview Schedule</button>
+                                <button type="submit" class="btn btn-primary">Submit Registration</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Sidebar -->
+                    <div class="lg:col-span-1">
+                        <!-- Registration Status -->
+                        <div class="card mb-6">
+                            <div class="card-header">
+                                <h3 class="card-title">Registration Status</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm">Credits Selected</span>
+                                        <span class="font-semibold" id="credits-count">14</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm">Maximum Credits</span>
+                                        <span class="text-sm text-muted">16</span>
+                                    </div>
+                                    <div class="progress-bar bg-muted rounded-full h-2">
+                                        <div class="progress-fill bg-primary h-full rounded-full" style="width: 87.5%"></div>
+                                    </div>
+                                    <div class="text-xs text-muted">2 credits remaining</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Important Dates -->
+                        <div class="card mb-6">
+                            <div class="card-header">
+                                <h3 class="card-title">Important Dates</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="font-semibold text-sm">Registration Opens</div>
+                                        <div class="text-xs text-muted">November 15, 2024</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-sm text-warning">Registration Closes</div>
+                                        <div class="text-xs text-muted">December 15, 2024</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-sm">Add/Drop Deadline</div>
+                                        <div class="text-xs text-muted">January 31, 2025</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-sm">Withdraw Deadline</div>
+                                        <div class="text-xs text-muted">April 15, 2025</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Help & Support -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Need Help?</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-3">
+                                    <a href="/help/registration" class="btn btn-ghost btn-sm w-full justify-start">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                            <path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A1.5 1.5 0 018 6.25h.5a1.5 1.5 0 01.5 2.5H8v.75a.5.5 0 01-1 0V8.5h1a.5.5 0 000-1H7.5a.5.5 0 01-.5-.5v-.5A.5.5 0 017.5 6z"/>
+                                        </svg>
+                                        Registration Guide
+                                    </a>
+                                    <a href="/contact/registrar" class="btn btn-ghost btn-sm w-full justify-start">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                            <path d="M8 1a2 2 0 012 2v4H6V3a2 2 0 012-2zm3 6V3a3 3 0 00-6 0v4a2 2 0 00-2 2v5a2 2 0 002 2h6a2 2 0 002-2V9a2 2 0 00-2-2z"/>
+                                        </svg>
+                                        Contact Registrar
+                                    </a>
+                                    <a href="/help/advisor" class="btn btn-ghost btn-sm w-full justify-start">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                            <path d="M8 15A7 7 0 118 1a7 7 0 010 14zm0 1A8 8 0 108 0a8 8 0 000 16z"/>
+                                            <path d="M5.255 5.786a.237.237 0 00.241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 00.25.246h.811a.25.25 0 00.25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                                        </svg>
+                                        Academic Advisor
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-main">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <img src="https://connect.williams.edu/www/images/Branding/hEADER.png" alt="Williams College">
+                            </div>
+                            <p class="footer-description">Williams College inspires learning through close collaboration between students and faculty.</p>
+                            <address class="footer-address">
+                                <a href="https://goo.gl/maps/williams">880 Main Street<br>
+                                Williamstown, MA 01267</a><br>
+                                <a href="tel:+14135972000">(413) 597-2000</a>
+                            </address>
+                        </div>
+                        
+                        <div class="footer-nav">
+                            <div class="footer-nav-section">
+                                <h3 class="footer-nav-title">Academics</h3>
+                                <ul class="footer-nav-list">
+                                    <li><a href="/courses" class="footer-nav-link">Course Catalog</a></li>
+                                    <li><a href="/registration" class="footer-nav-link">Registration</a></li>
+                                    <li><a href="/academic-calendar" class="footer-nav-link">Academic Calendar</a></li>
+                                    <li><a href="/requirements" class="footer-nav-link">Degree Requirements</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="footer-nav-section">
+                                <h3 class="footer-nav-title">Student Services</h3>
+                                <ul class="footer-nav-list">
+                                    <li><a href="/registrar" class="footer-nav-link">Registrar</a></li>
+                                    <li><a href="/financial-aid" class="footer-nav-link">Financial Aid</a></li>
+                                    <li><a href="/advising" class="footer-nav-link">Academic Advising</a></li>
+                                    <li><a href="/support" class="footer-nav-link">Student Support</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-bottom">
+                        <p class="footer-copyright">&copy; 2024 Williams College. All rights reserved.</p>
+                        <ul class="footer-legal">
+                            <li><a href="/privacy">Privacy Policy</a></li>
+                            <li><a href="/accessibility">Accessibility</a></li>
+                            <li><a href="/terms">Terms of Use</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="/dev/scripts/core/theme-manager.js"></script>
+    <script src="/dev/scripts/core/accessibility.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mark body as ready for fade-in
+            document.body.classList.add('ready');
+            
+            let selectedCourses = [];
+            let totalCredits = 0;
+            
+            // Course selection functionality
+            document.querySelectorAll('.add-course').forEach(button => {
+                button.addEventListener('click', function() {
+                    const courseId = this.dataset.course;
+                    const courseItem = this.closest('.course-item');
+                    const courseTitle = courseItem.querySelector('h3').textContent;
+                    const creditsText = courseItem.querySelector('.badge-primary').textContent;
+                    const credits = parseInt(creditsText.match(/\d+/)[0]);
+                    
+                    if (this.textContent === 'Add Course') {
+                        // Add course
+                        selectedCourses.push({
+                            id: courseId,
+                            title: courseTitle,
+                            credits: credits
+                        });
+                        
+                        this.textContent = 'Remove';
+                        this.classList.remove('btn-outline');
+                        this.classList.add('btn-destructive');
+                        
+                        updateSelectedCourses();
+                        updateCreditsCount();
+                        
+                        window.a11y?.announce(`${courseTitle} added to registration`);
+                    } else if (this.textContent === 'Remove') {
+                        // Remove course
+                        selectedCourses = selectedCourses.filter(course => course.id !== courseId);
+                        
+                        this.textContent = 'Add Course';
+                        this.classList.remove('btn-destructive');
+                        this.classList.add('btn-outline');
+                        
+                        updateSelectedCourses();
+                        updateCreditsCount();
+                        
+                        window.a11y?.announce(`${courseTitle} removed from registration`);
+                    } else if (this.textContent === 'Join Waitlist') {
+                        // Handle waitlist
+                        selectedCourses.push({
+                            id: courseId,
+                            title: courseTitle + ' (Waitlist)',
+                            credits: credits,
+                            waitlist: true
+                        });
+                        
+                        this.textContent = 'Leave Waitlist';
+                        this.classList.remove('btn-outline');
+                        this.classList.add('btn-warning');
+                        
+                        updateSelectedCourses();
+                        updateCreditsCount();
+                        
+                        window.a11y?.announce(`Added to waitlist for ${courseTitle}`);
+                    }
+                });
+            });
+            
+            // Update selected courses display
+            function updateSelectedCourses() {
+                const container = document.getElementById('selected-courses');
+                
+                if (selectedCourses.length === 0) {
+                    container.innerHTML = `
+                        <div class="alert alert-info">
+                            <div class="alert-content">
+                                <div class="alert-description">Add courses from the list above to see them here.</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = selectedCourses.map(course => `
+                        <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                            <div>
+                                <h4 class="font-semibold">${course.title}</h4>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <span class="badge badge-primary">${course.credits} Credits</span>
+                                    ${course.waitlist ? '<span class="badge badge-warning">Waitlist</span>' : ''}
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-ghost btn-sm remove-selected" data-course="${course.id}">
+                                Remove
+                            </button>
+                        </div>
+                    `).join('');
+                    
+                    // Add event listeners to remove buttons
+                    container.querySelectorAll('.remove-selected').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const courseId = this.dataset.course;
+                            const addButton = document.querySelector(`[data-course="${courseId}"]`);
+                            if (addButton) {
+                                addButton.click(); // Trigger the add/remove logic
+                            }
+                        });
+                    });
+                }
+            }
+            
+            // Update credits count
+            function updateCreditsCount() {
+                totalCredits = selectedCourses.reduce((sum, course) => {
+                    return course.waitlist ? sum : sum + course.credits;
+                }, 0);
+                
+                document.getElementById('credits-count').textContent = totalCredits;
+                
+                // Update progress bar
+                const progressBar = document.querySelector('.progress-fill');
+                const percentage = Math.min((totalCredits / 16) * 100, 100);
+                progressBar.style.width = `${percentage}%`;
+                
+                // Check for overload
+                const overloadCheckbox = document.getElementById('overload-consent');
+                if (totalCredits > 16) {
+                    overloadCheckbox.closest('.form_question').style.display = 'block';
+                } else {
+                    overloadCheckbox.closest('.form_question').style.display = 'none';
+                }
+            }
+            
+            // Form submission
+            document.getElementById('registration-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (selectedCourses.length === 0) {
+                    window.a11y?.announce('Please select at least one course before submitting', 'assertive');
+                    return;
+                }
+                
+                if (!document.getElementById('terms-agreement').checked) {
+                    window.a11y?.announce('Please accept the terms and conditions', 'assertive');
+                    return;
+                }
+                
+                // Simulate form submission
+                const submitButton = this.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
+                
+                setTimeout(() => {
+                    window.a11y?.announce('Registration submitted successfully');
+                    alert('Registration submitted successfully! You will receive a confirmation email shortly.');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Registration';
+                }, 2000);
+            });
+            
+            // Search courses functionality
+            document.getElementById('search-courses').addEventListener('click', function() {
+                window.a11y?.announce('Searching courses...');
+                // Simulate search - in real implementation, this would make an API call
+                setTimeout(() => {
+                    window.a11y?.announce('Course search completed');
+                }, 1000);
+            });
+            
+            // User menu toggle
+            const userToggle = document.querySelector('.header-user-toggle');
+            const userMenu = document.querySelector('.header-user');
+            
+            if (userToggle && userMenu) {
+                userToggle.addEventListener('click', function() {
+                    const isOpen = userMenu.classList.contains('open');
+                    userMenu.classList.toggle('open');
+                    userToggle.setAttribute('aria-expanded', !isOpen);
+                });
+                
+                // Close on outside click
+                document.addEventListener('click', function(e) {
+                    if (!userMenu.contains(e.target)) {
+                        userMenu.classList.remove('open');
+                        userToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+            
+            // Announce page load
+            if (window.a11y) {
+                window.a11y.announce('Course registration form loaded');
+            }
+            
+            console.log('Form template loaded successfully');
+        });
+    </script>
+</body>
+</html>

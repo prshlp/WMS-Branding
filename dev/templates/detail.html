@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#500082">
+    <title>John Doe - Student Record - Williams College</title>
+    
+    <!-- Performance optimized loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    
+    <!-- Critical CSS inlined for optimal performance -->
+    <style id="critical-css">
+        :root {
+            --williams-purple: #500082;
+            --williams-gold: #ffbe0a;
+            --background: #ffffff;
+            --foreground: #18181b;
+        }
+        [data-theme="dark"] {
+            --background: #09090b;
+            --foreground: #fafafa;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --background: #09090b;
+                --foreground: #fafafa;
+            }
+        }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            opacity: 0;
+            transition: opacity 300ms ease;
+        }
+        body.ready { opacity: 1; }
+        .detail-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 0.5rem;
+            height: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+    
+    <!-- Design System Styles -->
+    <link href="/dev/styles/main.css" rel="stylesheet">
+    
+    <!-- Theme detection script -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('williams-theme') || 'auto';
+            if (theme === 'auto') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        })();
+    </script>
+</head>
+<body>
+    <!-- Skip Navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Page Layout -->
+    <div class="layout-detail">
+        <!-- Header -->
+        <header class="detail-header site-header compact">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-brand">
+                        <a href="/" class="header-logo">
+                            <img src="https://connect.williams.edu/www/images/Branding/hEADER.png" 
+                                 alt="Williams College" 
+                                 width="200" 
+                                 height="32">
+                        </a>
+                        <div>
+                            <h1 class="header-page-title">Student Record</h1>
+                            <p class="header-subtitle">John Doe (ID: 123456)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <!-- Theme Toggle -->
+                        <button type="button" class="header-theme-toggle theme-toggle" data-theme-toggle="cycle" aria-label="Toggle theme">
+                            <svg data-theme-icon="light" class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 2V4M10 16V18M4 10H2M6.31412 6.31412L4.8999 4.8999M13.6859 6.31412L15.1001 4.8999M6.31412 13.69L4.8999 15.1001M13.6859 13.69L15.1001 15.1001M18 10H16M14 10C14 7.79086 12.2091 6 10 6C7.79086 6 6 7.79086 6 10C6 12.2091 7.79086 14 10 14C12.2091 14 14 12.2091 14 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg data-theme-icon="dark" class="theme-icon theme-icon--dark" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" fill="currentColor"/>
+                            </svg>
+                            <svg data-theme-icon="auto" class="theme-icon theme-icon--auto" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 2C10 1.44772 9.55228 1 9 1C8.44772 1 8 1.44772 8 2V3C8 3.55228 8.44772 4 9 4C9.55228 4 10 3.55228 10 3V2Z" fill="currentColor"/>
+                                <path d="M14 10C14 12.2091 12.2091 14 10 14V10H14Z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- User Menu -->
+                        <div class="header-user">
+                            <button class="header-user-toggle" aria-expanded="false">
+                                <div class="header-user-avatar">AD</div>
+                                <span class="header-user-name">Admin User</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="m4 6 4 4 4-4"/>
+                                </svg>
+                            </button>
+                            <div class="header-user-menu">
+                                <a href="/dashboard">Dashboard</a>
+                                <a href="/profile">View Profile</a>
+                                <a href="/settings">Account Settings</a>
+                                <hr style="border: none; border-top: 1px solid var(--border); margin: 0.5rem 0;">
+                                <a href="/logout">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="detail-main" id="main-content" data-crm-content="true">
+            <!-- Breadcrumbs -->
+            <div class="container">
+                <nav class="breadcrumb mb-6" aria-label="Breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="/">Home</a>
+                    </div>
+                    <div class="breadcrumb-item">
+                        <a href="/admin">Administration</a>
+                    </div>
+                    <div class="breadcrumb-item">
+                        <a href="/students">Student Records</a>
+                    </div>
+                    <div class="breadcrumb-item active" aria-current="page">
+                        John Doe
+                    </div>
+                </nav>
+            </div>
+            
+            <!-- Student Header -->
+            <section class="detail-hero bg-muted py-6">
+                <div class="container">
+                    <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                        <div class="flex items-start gap-6">
+                            <div class="w-24 h-24 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                                JD
+                            </div>
+                            <div>
+                                <h1 class="text-3xl font-bold mb-2">John Doe</h1>
+                                <div class="flex flex-wrap items-center gap-4 mb-3">
+                                    <span class="badge badge-success">Active Student</span>
+                                    <span class="badge badge-primary">Class of 2025</span>
+                                    <span class="badge badge-outline">Computer Science</span>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-6 text-sm text-muted">
+                                    <div class="flex items-center gap-2">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                            <path d="M2 2A2 2 0 0 0 0 4v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"/>
+                                        </svg>
+                                        john.doe@williams.edu
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122L9.98 10.97a.678.678 0 0 1-.358-.063 5.678 5.678 0 0 1-1.673-1.09 5.678 5.678 0 0 1-1.09-1.673.678.678 0 0 1-.063-.358L6.236 6.98a.678.678 0 0 0-.122-.58L4.32 3.094a.678.678 0 0 0-.667-.766z"/>
+                                        </svg>
+                                        (413) 555-0123
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                                        </svg>
+                                        Student ID: 123456
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <button class="btn btn-outline" id="print-record">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                    <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                                    <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+                                </svg>
+                                Print Record
+                            </button>
+                            <button class="btn btn-primary" id="edit-student">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708L9.708 9H9a.5.5 0 0 1-.5-.5v-.708l5.854-5.854zm.5 1.5L7 7.293V7h-.293L12.646 1.646z"/>
+                                </svg>
+                                Edit Record
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Student Details -->
+            <div class="container py-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Main Content -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Personal Information -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Personal Information</h2>
+                                <p class="card-description">Basic student details and contact information</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Full Name</label>
+                                        <p class="mt-1 text-base">John Alexander Doe</p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Preferred Name</label>
+                                        <p class="mt-1 text-base">John</p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Date of Birth</label>
+                                        <p class="mt-1 text-base">March 15, 2003</p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Gender</label>
+                                        <p class="mt-1 text-base">Male</p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Email Address</label>
+                                        <p class="mt-1 text-base">
+                                            <a href="mailto:john.doe@williams.edu" class="text-primary hover:underline">
+                                                john.doe@williams.edu
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Phone Number</label>
+                                        <p class="mt-1 text-base">
+                                            <a href="tel:+14135550123" class="text-primary hover:underline">
+                                                (413) 555-0123
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="text-sm font-medium text-muted">Home Address</label>
+                                        <p class="mt-1 text-base">
+                                            123 Main Street<br>
+                                            Springfield, MA 01103<br>
+                                            United States
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Academic Information -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Academic Information</h2>
+                                <p class="card-description">Current academic status and program details</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Student ID</label>
+                                        <p class="mt-1 text-base font-mono">123456</p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Class Year</label>
+                                        <p class="mt-1 text-base">Class of 2025</p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Academic Status</label>
+                                        <p class="mt-1"><span class="badge badge-success">Active</span></p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Enrollment Status</label>
+                                        <p class="mt-1 text-base">Full-time</p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Major</label>
+                                        <p class="mt-1 text-base">Computer Science</p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Minor</label>
+                                        <p class="mt-1 text-base">Mathematics</p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Academic Advisor</label>
+                                        <p class="mt-1 text-base">
+                                            <a href="/faculty/johnson" class="text-primary hover:underline">
+                                                Professor Sarah Johnson
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-medium text-muted">Entry Term</label>
+                                        <p class="mt-1 text-base">Fall 2021</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Current Courses -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h2 class="card-title">Current Courses - Fall 2024</h2>
+                                        <p class="card-description">Enrolled courses for the current semester</p>
+                                    </div>
+                                    <a href="/students/123456/courses" class="btn btn-outline btn-sm">View All Courses</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                                        <div>
+                                            <h3 class="font-semibold">CSCI 334 - Advanced Algorithms</h3>
+                                            <p class="text-sm text-muted">Professor Johnson • MWF 10:00-11:00 AM</p>
+                                            <div class="flex items-center gap-2 mt-2">
+                                                <span class="badge badge-primary">4 Credits</span>
+                                                <span class="badge badge-outline badge-success">A-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                                        <div>
+                                            <h3 class="font-semibold">MATH 350 - Real Analysis</h3>
+                                            <p class="text-sm text-muted">Professor Smith • TTH 2:00-3:30 PM</p>
+                                            <div class="flex items-center gap-2 mt-2">
+                                                <span class="badge badge-primary">4 Credits</span>
+                                                <span class="badge badge-outline badge-warning">B+</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+                                        <div>
+                                            <h3 class="font-semibold">PHIL 201 - Logic and Reasoning</h3>
+                                            <p class="text-sm text-muted">Professor Davis • MWF 2:00-3:00 PM</p>
+                                            <div class="flex items-center gap-2 mt-2">
+                                                <span class="badge badge-primary">3 Credits</span>
+                                                <span class="badge badge-outline badge-success">A</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Activity -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Recent Activity</h2>
+                                <p class="card-description">Latest academic and administrative actions</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-4">
+                                    <div class="flex items-start gap-3">
+                                        <span class="badge badge-success mt-1">Grade</span>
+                                        <div class="flex-1">
+                                            <p class="text-sm">Received A- on CSCI 334 Midterm Exam</p>
+                                            <p class="text-xs text-muted">2 hours ago</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-3">
+                                        <span class="badge badge-info mt-1">Registration</span>
+                                        <div class="flex-1">
+                                            <p class="text-sm">Registered for Spring 2025 courses</p>
+                                            <p class="text-xs text-muted">1 day ago</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-3">
+                                        <span class="badge badge-warning mt-1">Alert</span>
+                                        <div class="flex-1">
+                                            <p class="text-sm">Course evaluation deadline approaching</p>
+                                            <p class="text-xs text-muted">2 days ago</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-3">
+                                        <span class="badge badge-primary mt-1">Payment</span>
+                                        <div class="flex-1">
+                                            <p class="text-sm">Spring 2025 tuition payment received</p>
+                                            <p class="text-xs text-muted">1 week ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/students/123456/activity" class="btn btn-ghost btn-sm">View All Activity</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar -->
+                    <div class="space-y-6">
+                        <!-- Academic Summary -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Academic Summary</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-4">
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-success mb-2">3.75</div>
+                                        <p class="text-sm text-muted mb-4">Cumulative GPA</p>
+                                        <div class="progress-bar bg-muted rounded-full h-2">
+                                            <div class="progress-fill bg-success h-full rounded-full" style="width: 94%;"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-border">
+                                        <div class="text-center">
+                                            <div class="text-lg font-semibold">114</div>
+                                            <div class="text-xs text-muted">Credits Completed</div>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="text-lg font-semibold">14</div>
+                                            <div class="text-xs text-muted">Current Credits</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Quick Actions</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-2">
+                                    <a href="/students/123456/transcript" class="btn btn-ghost btn-sm w-full justify-start">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                            <path fill-rule="evenodd" d="M4 4a2 2 0 0 1 2-2h4.586A2 2 0 0 1 12 2.586L15.414 6A2 2 0 0 1 16 7.414V16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4zm2 6a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H7z"/>
+                                        </svg>
+                                        View Transcript
+                                    </a>
+                                    
+                                    <a href="/students/123456/schedule" class="btn btn-ghost btn-sm w-full justify-start">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                            <path fill-rule="evenodd" d="M6 2a1 1 0 0 0-1 1v1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1V3a1 1 0 1 0-2 0v1H7V3a1 1 0 0 0-1-1zm0 5a1 1 0 0 0 0 2h8a1 1 0 1 0 0-2H6z"/>
+                                        </svg>
+                                        View Schedule
+                                    </a>
+                                    
+                                    <a href="/students/123456/finances" class="btn btn-ghost btn-sm w-full justify-start">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                            <path d="M4 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2V6h10a2 2 0 0 0-2-2H4z"/>
+                                            <path d="M6 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8zm4 1a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2h-4z"/>
+                                        </svg>
+                                        Financial Account
+                                    </a>
+                                    
+                                    <a href="/students/123456/holds" class="btn btn-ghost btn-sm w-full justify-start">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                        </svg>
+                                        View Holds
+                                    </a>
+                                    
+                                    <hr class="border-border">
+                                    
+                                    <button class="btn btn-ghost btn-sm w-full justify-start text-destructive" id="archive-student">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                        </svg>
+                                        Archive Record
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Contact Information -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Emergency Contact</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="font-semibold text-sm">Mary Doe</div>
+                                        <div class="text-sm text-muted">Mother</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm">
+                                            <a href="tel:+14135550124" class="text-primary hover:underline">
+                                                (413) 555-0124
+                                            </a>
+                                        </div>
+                                        <div class="text-sm">
+                                            <a href="mailto:mary.doe@email.com" class="text-primary hover:underline">
+                                                mary.doe@email.com
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Administrative Notes</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="space-y-3">
+                                    <div class="text-sm">
+                                        <strong>Note added by Registrar:</strong> Student has completed all prerequisites for advanced courses.
+                                    </div>
+                                    <div class="text-xs text-muted">December 10, 2024</div>
+                                </div>
+                                <hr class="my-3 border-border">
+                                <button class="btn btn-ghost btn-sm w-full" id="add-note">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-2">
+                                        <path d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                    Add Note
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="site-footer minimal">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-main">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <img src="https://connect.williams.edu/www/images/Branding/hEADER.png" alt="Williams College">
+                            </div>
+                            <p class="footer-copyright">&copy; 2024 Williams College. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="/dev/scripts/core/theme-manager.js"></script>
+    <script src="/dev/scripts/core/accessibility.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mark body as ready for fade-in
+            document.body.classList.add('ready');
+            
+            // Edit student functionality
+            document.getElementById('edit-student').addEventListener('click', function() {
+                window.location.href = '/students/123456/edit';
+            });
+            
+            // Print record functionality
+            document.getElementById('print-record').addEventListener('click', function() {
+                window.print();
+                window.a11y?.announce('Print dialog opened');
+            });
+            
+            // Archive student functionality
+            document.getElementById('archive-student').addEventListener('click', function() {
+                if (confirm('Are you sure you want to archive this student record? This action can be undone.')) {
+                    window.a11y?.announce('Student record archived');
+                    // In real implementation, this would make an API call
+                    console.log('Archiving student 123456');
+                }
+            });
+            
+            // Add note functionality
+            document.getElementById('add-note').addEventListener('click', function() {
+                const note = prompt('Enter administrative note:');
+                if (note && note.trim()) {
+                    window.a11y?.announce('Note added successfully');
+                    // In real implementation, this would make an API call
+                    console.log('Adding note:', note);
+                }
+            });
+            
+            // User menu toggle
+            const userToggle = document.querySelector('.header-user-toggle');
+            const userMenu = document.querySelector('.header-user');
+            
+            if (userToggle && userMenu) {
+                userToggle.addEventListener('click', function() {
+                    const isOpen = userMenu.classList.contains('open');
+                    userMenu.classList.toggle('open');
+                    userToggle.setAttribute('aria-expanded', !isOpen);
+                });
+                
+                // Close on outside click
+                document.addEventListener('click', function(e) {
+                    if (!userMenu.contains(e.target)) {
+                        userMenu.classList.remove('open');
+                        userToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+            
+            // Quick action links with analytics
+            document.querySelectorAll('.card a[href]').forEach(link => {
+                link.addEventListener('click', function() {
+                    const action = this.textContent.trim();
+                    console.log(`Quick action clicked: ${action}`);
+                });
+            });
+            
+            // Announce page load
+            if (window.a11y) {
+                window.a11y.announce('Student record details loaded');
+            }
+            
+            console.log('Detail template loaded successfully');
+        });
+    </script>
+</body>
+</html>

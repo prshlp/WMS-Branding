@@ -1,0 +1,627 @@
+/* ==========================================================================
+   Navigation Components - Williams College Design System
+   Comprehensive navigation system with accessibility
+   ========================================================================== */
+
+/* =================================
+   Base Navigation
+   ================================= */
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: block;
+  padding: var(--space-2) var(--space-4);
+  color: var(--foreground-subtle);
+  text-decoration: none;
+  transition: var(--transition-colors);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-medium);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--primary);
+  background-color: var(--muted);
+  text-decoration: none;
+}
+
+.nav-link.active,
+.nav-link[aria-current="page"] {
+  color: var(--primary);
+  font-weight: var(--font-semibold);
+  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.nav-link:disabled,
+.nav-link[aria-disabled="true"] {
+  color: var(--foreground-muted);
+  pointer-events: none;
+  cursor: default;
+}
+
+/* =================================
+   Navigation Variants
+   ================================= */
+
+/* Horizontal navigation */
+.nav-horizontal {
+  flex-direction: row;
+  gap: var(--space-2);
+}
+
+/* Vertical navigation */
+.nav-vertical {
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Pills navigation */
+.nav-pills .nav-link {
+  border-radius: var(--radius-full);
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Tabs navigation */
+.nav-tabs {
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-tabs .nav-link {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  border: 1px solid transparent;
+  margin-bottom: -1px;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: var(--border);
+  background-color: var(--muted);
+}
+
+.nav-tabs .nav-link.active {
+  background-color: var(--background);
+  border-color: var(--border) var(--border) var(--background);
+}
+
+/* Underline navigation */
+.nav-underline {
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-underline .nav-link {
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.nav-underline .nav-link:hover {
+  border-bottom-color: var(--primary);
+}
+
+.nav-underline .nav-link.active {
+  border-bottom-color: var(--primary);
+  color: var(--primary);
+}
+
+/* =================================
+   Breadcrumb Navigation
+   ================================= */
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background-color: transparent;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  margin: 0 var(--space-2);
+  color: var(--foreground-muted);
+  font-weight: var(--font-normal);
+}
+
+.breadcrumb-item a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+
+.breadcrumb-item a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: var(--foreground-muted);
+}
+
+/* Icons in breadcrumbs */
+.breadcrumb-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: var(--space-1);
+}
+
+/* =================================
+   Dropdown Navigation
+   ================================= */
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.nav-dropdown-toggle::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 0.3em solid transparent;
+  border-right: 0.3em solid transparent;
+  border-top: 0.3em solid currentColor;
+  transition: transform 200ms ease;
+}
+
+.nav-dropdown-toggle[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: var(--z-dropdown);
+  min-width: 10rem;
+  padding: var(--space-2);
+  margin: var(--space-1) 0 0;
+  background-color: var(--popover);
+  border: 1px solid var(--popover-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.5rem);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
+}
+
+.nav-dropdown.open .nav-dropdown-menu,
+.nav-dropdown-toggle[aria-expanded="true"] + .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown-item {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  color: var(--popover-foreground);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-colors);
+}
+
+.nav-dropdown-item:hover,
+.nav-dropdown-item:focus {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.nav-dropdown-divider {
+  height: 1px;
+  margin: var(--space-2) 0;
+  background-color: var(--border);
+}
+
+/* =================================
+   Sidebar Navigation
+   ================================= */
+
+.sidebar-nav {
+  width: 100%;
+  padding: var(--space-4);
+}
+
+.sidebar-nav .nav {
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.sidebar-nav .nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.sidebar-nav .nav-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Collapsed sidebar */
+.sidebar-collapsed .sidebar-nav .nav-link {
+  justify-content: center;
+  padding: var(--space-3);
+}
+
+.sidebar-collapsed .sidebar-nav .nav-text {
+  display: none;
+}
+
+/* Nested navigation */
+.sidebar-nav .nav-nested {
+  margin-left: var(--space-6);
+  margin-top: var(--space-1);
+}
+
+.sidebar-nav .nav-nested .nav-link {
+  padding-left: var(--space-6);
+  font-size: var(--text-sm);
+}
+
+/* =================================
+   Pagination Navigation
+   ================================= */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination-item {
+  display: flex;
+}
+
+.pagination-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: var(--space-2);
+  color: var(--foreground);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: var(--transition-colors);
+  font-weight: var(--font-medium);
+}
+
+.pagination-link:hover:not(.disabled) {
+  background-color: var(--muted);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.pagination-link.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.pagination-link.disabled {
+  color: var(--foreground-muted);
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* Pagination sizes */
+.pagination-sm .pagination-link {
+  min-width: 2rem;
+  height: 2rem;
+  font-size: var(--text-xs);
+}
+
+.pagination-lg .pagination-link {
+  min-width: 3rem;
+  height: 3rem;
+  font-size: var(--text-lg);
+}
+
+/* =================================
+   Mobile Navigation
+   ================================= */
+
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background-color: var(--background);
+  transform: translateX(-100%);
+  transition: transform 300ms ease;
+}
+
+.mobile-nav.open {
+  transform: translateX(0);
+}
+
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-nav-close {
+  @extend .btn;
+  @extend .btn-ghost;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+}
+
+.mobile-nav-body {
+  padding: var(--space-4);
+  overflow-y: auto;
+  height: calc(100vh - 5rem);
+}
+
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-modal) - 1);
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+.mobile-nav.open + .mobile-nav-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile navigation toggle */
+.mobile-nav-toggle {
+  @extend .btn;
+  @extend .btn-ghost;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.mobile-nav-toggle span {
+  width: 1.25rem;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 1px;
+  transition: all 200ms ease;
+}
+
+.mobile-nav-toggle.open span:nth-child(1) {
+  transform: rotate(45deg) translateY(0.4rem);
+}
+
+.mobile-nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-nav-toggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-0.4rem);
+}
+
+/* =================================
+   Search Navigation
+   ================================= */
+
+.nav-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-search-input {
+  @extend .form-input;
+  padding-right: var(--space-10);
+  border-radius: var(--radius-full);
+}
+
+.nav-search-button {
+  position: absolute;
+  right: var(--space-1);
+  @extend .btn;
+  @extend .btn-ghost;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+
+/* =================================
+   Williams College Specific
+   ================================= */
+
+/* Williams header navigation */
+.williams-nav {
+  background-color: var(--williams-purple);
+  color: white;
+}
+
+.williams-nav .nav-link {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: var(--font-medium);
+}
+
+.williams-nav .nav-link:hover,
+.williams-nav .nav-link:focus {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.williams-nav .nav-link.active {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Williams secondary navigation */
+.williams-secondary-nav {
+  background-color: var(--williams-gold);
+  color: var(--gray-900);
+}
+
+.williams-secondary-nav .nav-link {
+  color: var(--gray-800);
+}
+
+.williams-secondary-nav .nav-link:hover,
+.williams-secondary-nav .nav-link:focus {
+  color: var(--gray-900);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* =================================
+   CRM Navigation Integration
+   ================================= */
+
+/* Override CRM navigation styles */
+[data-crm-content] .nav,
+[data-crm-content] .navigation,
+[data-crm-content] .menu {
+  @extend .nav;
+  @extend .nav-horizontal;
+}
+
+[data-crm-content] .nav-item,
+[data-crm-content] .navigation-item,
+[data-crm-content] .menu-item {
+  @extend .nav-item;
+}
+
+[data-crm-content] .nav-link,
+[data-crm-content] .navigation-link,
+[data-crm-content] .menu-link {
+  @extend .nav-link;
+}
+
+/* CRM pagination */
+[data-crm-content] .pagination {
+  @extend .pagination;
+}
+
+[data-crm-content] .page-item {
+  @extend .pagination-item;
+}
+
+[data-crm-content] .page-link {
+  @extend .pagination-link;
+}
+
+/* =================================
+   Responsive Navigation
+   ================================= */
+
+@media (max-width: 768px) {
+  .nav-horizontal {
+    flex-direction: column;
+  }
+  
+  .nav-tabs,
+  .nav-underline {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .nav-tabs::-webkit-scrollbar,
+  .nav-underline::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .pagination {
+    font-size: var(--text-sm);
+  }
+  
+  .pagination-link {
+    min-width: 2rem;
+    height: 2rem;
+    padding: var(--space-1);
+  }
+}
+
+/* =================================
+   Accessibility Enhancements
+   ================================= */
+
+/* Skip navigation */
+.skip-nav {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: var(--space-2) var(--space-4);
+  text-decoration: none;
+  z-index: var(--z-max);
+  border-radius: 0 0 var(--radius-md) 0;
+}
+
+.skip-nav:focus {
+  top: 0;
+}
+
+/* Focus indicators */
+.nav-link:focus-visible,
+.pagination-link:focus-visible,
+.breadcrumb-item a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Screen reader improvements */
+.nav[aria-label],
+.pagination[aria-label] {
+  /* Ensure proper labeling for screen readers */
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .nav-link,
+  .pagination-link {
+    border: 1px solid currentColor;
+  }
+  
+  .nav-link.active,
+  .pagination-link.active {
+    background-color: var(--foreground);
+    color: var(--background);
+  }
+}

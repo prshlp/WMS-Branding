@@ -1,0 +1,521 @@
+/* ==========================================================================
+   Form Components - Williams College Design System
+   shadcn-inspired form system with accessibility
+   ========================================================================== */
+
+/* =================================
+   Form Layout
+   ================================= */
+
+.form {
+  width: 100%;
+  max-width: 40rem;
+}
+
+.form-group,
+.form-field {
+  margin-bottom: var(--space-6);
+}
+
+.form-row {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.form-row > * {
+  flex: 1;
+}
+
+/* =================================
+   Labels
+   ================================= */
+
+.form-label,
+label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--foreground);
+}
+
+/* Required indicator */
+.form-label.required::after,
+label.required::after {
+  content: "*";
+  margin-left: var(--space-1);
+  color: var(--destructive);
+}
+
+/* Optional indicator */
+.form-label .optional,
+label .optional {
+  margin-left: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--font-normal);
+  color: var(--foreground-muted);
+}
+
+/* =================================
+   Input Base Styles
+   ================================= */
+
+.form-input,
+.form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"] {
+  /* Layout */
+  display: block;
+  width: 100%;
+  height: 2.5rem;
+  
+  /* Spacing */
+  padding: var(--space-2) var(--space-3);
+  
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  
+  /* Appearance */
+  background-color: var(--input-background);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  color: var(--foreground);
+  
+  /* Transitions */
+  transition: var(--transition-colors), box-shadow 150ms ease;
+}
+
+/* Hover state */
+.form-input:hover:not(:disabled),
+input:hover:not(:disabled) {
+  border-color: var(--input-hover);
+}
+
+/* Focus state */
+.form-input:focus,
+input:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-focus) 20%, transparent);
+}
+
+/* Disabled state */
+.form-input:disabled,
+input:disabled {
+  background-color: var(--muted);
+  color: var(--foreground-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Read-only state */
+.form-input:read-only,
+input:read-only {
+  background-color: var(--muted);
+  cursor: default;
+}
+
+/* Invalid state */
+.form-input:invalid,
+.form-input[aria-invalid="true"],
+input:invalid,
+input[aria-invalid="true"] {
+  border-color: var(--destructive);
+}
+
+.form-input:invalid:focus,
+.form-input[aria-invalid="true"]:focus,
+input:invalid:focus,
+input[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--destructive) 20%, transparent);
+}
+
+/* =================================
+   Textarea
+   ================================= */
+
+.form-textarea,
+textarea {
+  /* Inherit input styles */
+  @extend .form-input;
+  
+  /* Specific textarea styles */
+  min-height: 5rem;
+  height: auto;
+  resize: vertical;
+}
+
+textarea.resize-none {
+  resize: none;
+}
+
+textarea.resize-x {
+  resize: horizontal;
+}
+
+textarea.resize-y {
+  resize: vertical;
+}
+
+/* =================================
+   Select
+   ================================= */
+
+.form-select,
+select {
+  /* Inherit input styles */
+  @extend .form-input;
+  
+  /* Select-specific styles */
+  padding-right: var(--space-10);
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23500082' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  background-size: 1rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Multiple select */
+select[multiple] {
+  height: auto;
+  background-image: none;
+  padding-right: var(--space-3);
+}
+
+/* =================================
+   Checkbox & Radio
+   ================================= */
+
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--space-3);
+}
+
+.form-check-input,
+input[type="checkbox"],
+input[type="radio"] {
+  /* Reset */
+  appearance: none;
+  margin: 0;
+  
+  /* Size */
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  
+  /* Spacing */
+  margin-top: 0.125rem;
+  margin-right: var(--space-2);
+  
+  /* Appearance */
+  background-color: var(--input-background);
+  border: 1px solid var(--input-border);
+  cursor: pointer;
+  
+  /* Transitions */
+  transition: var(--transition-colors);
+}
+
+/* Checkbox specific */
+input[type="checkbox"] {
+  border-radius: var(--radius-sm);
+}
+
+/* Radio specific */
+input[type="radio"] {
+  border-radius: var(--radius-full);
+}
+
+/* Hover */
+.form-check-input:hover:not(:disabled),
+input[type="checkbox"]:hover:not(:disabled),
+input[type="radio"]:hover:not(:disabled) {
+  border-color: var(--input-hover);
+}
+
+/* Focus */
+.form-check-input:focus,
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-focus) 20%, transparent);
+}
+
+/* Checked state */
+.form-check-input:checked,
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Checkbox check mark */
+input[type="checkbox"]:checked {
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* Radio dot */
+input[type="radio"]:checked {
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='6' cy='6' r='3' fill='white'/%3E%3C/svg%3E");
+}
+
+/* Indeterminate checkbox */
+input[type="checkbox"]:indeterminate {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 6H9' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Disabled */
+.form-check-input:disabled,
+input[type="checkbox"]:disabled,
+input[type="radio"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-check-label {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+/* =================================
+   Switch/Toggle
+   ================================= */
+
+.form-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.form-switch-input {
+  /* Reset */
+  appearance: none;
+  margin: 0;
+  
+  /* Size */
+  width: 2.75rem;
+  height: 1.5rem;
+  
+  /* Appearance */
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  position: relative;
+  cursor: pointer;
+  
+  /* Transitions */
+  transition: var(--transition-colors);
+}
+
+/* Switch thumb */
+.form-switch-input::before {
+  content: "";
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: var(--radius-full);
+  top: 0.0625rem;
+  left: 0.0625rem;
+  background-color: white;
+  box-shadow: var(--shadow-sm);
+  transition: transform 200ms ease;
+}
+
+/* Checked state */
+.form-switch-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.form-switch-input:checked::before {
+  transform: translateX(1.25rem);
+}
+
+/* Focus */
+.form-switch-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+/* =================================
+   Input Groups
+   ================================= */
+
+.input-group {
+  display: flex;
+  width: 100%;
+}
+
+.input-group > * {
+  flex: 1;
+}
+
+.input-group-prepend,
+.input-group-append {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--muted);
+  border: 1px solid var(--input-border);
+  color: var(--foreground-muted);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.input-group-prepend {
+  border-right: 0;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.input-group-append {
+  border-left: 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.input-group .form-input {
+  border-radius: 0;
+}
+
+.input-group .form-input:first-child {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.input-group .form-input:last-child {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* =================================
+   Form Validation
+   ================================= */
+
+.form-message,
+.form-text {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--foreground-muted);
+}
+
+.form-error {
+  color: var(--destructive);
+}
+
+.form-success {
+  color: var(--success);
+}
+
+.form-warning {
+  color: var(--warning);
+}
+
+/* =================================
+   File Input
+   ================================= */
+
+.form-file,
+input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  background-color: var(--input-background);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.form-file::file-selector-button,
+input[type="file"]::file-selector-button {
+  @extend .btn;
+  @extend .btn-sm;
+  @extend .btn-outline;
+  margin-right: var(--space-2);
+}
+
+/* =================================
+   Range Input
+   ================================= */
+
+.form-range,
+input[type="range"] {
+  width: 100%;
+  height: var(--space-6);
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+}
+
+input[type="range"]::-webkit-slider-track {
+  width: 100%;
+  height: var(--space-1);
+  background: var(--muted);
+  border-radius: var(--radius-full);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--space-4);
+  height: var(--space-4);
+  background: var(--primary);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  margin-top: calc(var(--space-1) / -2 + var(--space-4) / -2);
+  box-shadow: var(--shadow-sm);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: var(--primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* =================================
+   CRM Form Overrides
+   ================================= */
+
+/* Target CRM form elements */
+[data-crm-content] input:not([type="checkbox"]):not([type="radio"]),
+[data-crm-content] textarea,
+[data-crm-content] select {
+  @extend .form-input;
+}
+
+[data-crm-content] input[type="checkbox"],
+[data-crm-content] input[type="radio"] {
+  @extend .form-check-input;
+}
+
+/* CRM form labels */
+[data-crm-content] label,
+.form_label {
+  @extend .form-label;
+}
+
+/* CRM required fields */
+.form_question[data-required="1"] .form_label::after {
+  content: "*";
+  margin-left: var(--space-1);
+  color: var(--destructive);
+}

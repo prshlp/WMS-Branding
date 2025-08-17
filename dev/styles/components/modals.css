@@ -1,0 +1,603 @@
+/* ==========================================================================
+   Modal/Dialog Components - Williams College Design System
+   Accessible modal system with focus management
+   ========================================================================== */
+
+/* =================================
+   Modal Backdrop
+   ================================= */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal-backdrop);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =================================
+   Modal Container
+   ================================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  max-height: calc(100vh - 2rem);
+  background-color: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2xl);
+  transform: scale(0.95) translateY(-1rem);
+  transition: transform 300ms ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal.show .modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* =================================
+   Modal Sizes
+   ================================= */
+
+.modal-sm .modal-dialog {
+  max-width: 20rem;
+}
+
+.modal-lg .modal-dialog {
+  max-width: 48rem;
+}
+
+.modal-xl .modal-dialog {
+  max-width: 64rem;
+}
+
+.modal-fullscreen .modal-dialog {
+  max-width: none;
+  width: 100vw;
+  height: 100vh;
+  max-height: none;
+  margin: 0;
+  border-radius: 0;
+}
+
+/* =================================
+   Modal Content
+   ================================= */
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  margin: 0;
+  color: var(--card-foreground);
+}
+
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--foreground-muted);
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.modal-close:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Close icon */
+.modal-close::before {
+  content: "×";
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.modal-body {
+  flex: 1;
+  padding: var(--space-6);
+  overflow-y: auto;
+  color: var(--card-foreground);
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* =================================
+   Modal Variants
+   ================================= */
+
+/* Alert Modal */
+.modal-alert .modal-dialog {
+  max-width: 28rem;
+}
+
+.modal-alert .modal-body {
+  text-align: center;
+  padding: var(--space-8) var(--space-6);
+}
+
+.modal-alert .modal-icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-alert.modal-success .modal-icon {
+  background-color: color-mix(in srgb, var(--success) 10%, transparent);
+  color: var(--success);
+}
+
+.modal-alert.modal-warning .modal-icon {
+  background-color: color-mix(in srgb, var(--warning) 10%, transparent);
+  color: var(--warning);
+}
+
+.modal-alert.modal-error .modal-icon {
+  background-color: color-mix(in srgb, var(--destructive) 10%, transparent);
+  color: var(--destructive);
+}
+
+.modal-alert.modal-info .modal-icon {
+  background-color: color-mix(in srgb, var(--info) 10%, transparent);
+  color: var(--info);
+}
+
+/* Confirmation Modal */
+.modal-confirm .modal-footer {
+  justify-content: space-between;
+}
+
+/* Form Modal */
+.modal-form .modal-body {
+  padding: var(--space-4) var(--space-6);
+}
+
+.modal-form .form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* =================================
+   Drawer/Sheet Components
+   ================================= */
+
+.sheet {
+  position: fixed;
+  z-index: var(--z-modal);
+  background-color: var(--card);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-2xl);
+  transition: transform 300ms ease;
+}
+
+/* Sheet from right */
+.sheet-right {
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 24rem;
+  border-left: 1px solid var(--border);
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  transform: translateX(100%);
+}
+
+.sheet-right.show {
+  transform: translateX(0);
+}
+
+/* Sheet from left */
+.sheet-left {
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 24rem;
+  border-right: 1px solid var(--border);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  transform: translateX(-100%);
+}
+
+.sheet-left.show {
+  transform: translateX(0);
+}
+
+/* Sheet from top */
+.sheet-top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  max-height: 20rem;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  transform: translateY(-100%);
+}
+
+.sheet-top.show {
+  transform: translateY(0);
+}
+
+/* Sheet from bottom */
+.sheet-bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  max-height: 20rem;
+  border-top: 1px solid var(--border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  transform: translateY(100%);
+}
+
+.sheet-bottom.show {
+  transform: translateY(0);
+}
+
+/* Sheet content */
+.sheet-header {
+  @extend .modal-header;
+}
+
+.sheet-title {
+  @extend .modal-title;
+}
+
+.sheet-close {
+  @extend .modal-close;
+}
+
+.sheet-body {
+  @extend .modal-body;
+}
+
+.sheet-footer {
+  @extend .modal-footer;
+}
+
+/* =================================
+   Popover Components
+   ================================= */
+
+.popover {
+  position: absolute;
+  z-index: var(--z-popover);
+  min-width: 12rem;
+  max-width: 20rem;
+  background-color: var(--popover);
+  border: 1px solid var(--popover-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
+}
+
+.popover.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.popover-header {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
+  color: var(--popover-foreground);
+}
+
+.popover-body {
+  padding: var(--space-4);
+  color: var(--popover-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+/* Popover arrow */
+.popover::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+}
+
+.popover[data-placement^="top"]::before {
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--popover-border);
+}
+
+.popover[data-placement^="bottom"]::before {
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--popover-border);
+}
+
+.popover[data-placement^="left"]::before {
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--popover-border);
+}
+
+.popover[data-placement^="right"]::before {
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--popover-border);
+}
+
+/* =================================
+   Tooltip Components
+   ================================= */
+
+.tooltip {
+  position: absolute;
+  z-index: var(--z-tooltip);
+  max-width: 12rem;
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--gray-900);
+  color: white;
+  font-size: var(--text-xs);
+  line-height: var(--leading-tight);
+  text-align: center;
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
+  pointer-events: none;
+}
+
+.tooltip.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+/* Dark theme tooltip */
+[data-theme="dark"] .tooltip {
+  background-color: var(--gray-50);
+  color: var(--gray-900);
+}
+
+/* Tooltip arrow */
+.tooltip::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 4px solid transparent;
+}
+
+.tooltip[data-placement^="top"]::before {
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--gray-900);
+}
+
+.tooltip[data-placement^="bottom"]::before {
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--gray-900);
+}
+
+.tooltip[data-placement^="left"]::before {
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--gray-900);
+}
+
+.tooltip[data-placement^="right"]::before {
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--gray-900);
+}
+
+/* Dark theme tooltip arrows */
+[data-theme="dark"] .tooltip[data-placement^="top"]::before {
+  border-top-color: var(--gray-50);
+}
+
+[data-theme="dark"] .tooltip[data-placement^="bottom"]::before {
+  border-bottom-color: var(--gray-50);
+}
+
+[data-theme="dark"] .tooltip[data-placement^="left"]::before {
+  border-left-color: var(--gray-50);
+}
+
+[data-theme="dark"] .tooltip[data-placement^="right"]::before {
+  border-right-color: var(--gray-50);
+}
+
+/* =================================
+   JavaScript Utilities
+   ================================= */
+
+/* Disable body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Focus trap for modals */
+.modal[data-focus-trap="true"],
+.sheet[data-focus-trap="true"] {
+  /* Focus will be managed by JavaScript */
+}
+
+/* =================================
+   CRM Modal Integration
+   ================================= */
+
+/* Override CRM modal/dialog styles */
+[data-crm-content] .modal,
+[data-crm-content] .dialog,
+[data-crm-content] .popup {
+  @extend .modal;
+}
+
+[data-crm-content] .modal-content,
+[data-crm-content] .dialog-content {
+  @extend .modal-dialog;
+}
+
+[data-crm-content] .modal-header,
+[data-crm-content] .dialog-header {
+  @extend .modal-header;
+}
+
+[data-crm-content] .modal-body,
+[data-crm-content] .dialog-body {
+  @extend .modal-body;
+}
+
+[data-crm-content] .modal-footer,
+[data-crm-content] .dialog-footer {
+  @extend .modal-footer;
+}
+
+/* =================================
+   Responsive Modals
+   ================================= */
+
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin: var(--space-2);
+    max-height: calc(100vh - 1rem);
+  }
+  
+  .modal-fullscreen .modal-dialog {
+    margin: 0;
+    border-radius: 0;
+    height: 100vh;
+  }
+  
+  .sheet-right,
+  .sheet-left {
+    max-width: 100vw;
+    border-radius: 0;
+  }
+  
+  .sheet-top,
+  .sheet-bottom {
+    max-height: 100vh;
+    border-radius: 0;
+  }
+}
+
+/* =================================
+   Accessibility Enhancements
+   ================================= */
+
+/* Ensure focus is visible */
+.modal-close:focus-visible,
+.sheet-close:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Screen reader announcements */
+.modal[aria-hidden="true"],
+.sheet[aria-hidden="true"] {
+  display: none;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .modal-dialog,
+  .sheet,
+  .popover {
+    border: 2px solid currentColor;
+  }
+  
+  .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .modal-dialog,
+  .sheet,
+  .popover,
+  .tooltip {
+    transition: none;
+  }
+  
+  .modal-backdrop {
+    transition: none;
+  }
+}
